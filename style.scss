@@ -1,0 +1,83 @@
+body{
+    background: #F0EEEE; 
+    .container {
+        background: #fff; 
+        header {
+            border-bottom: 1px solid #F2F1F1;
+            margin: 30px 0px;
+            padding: 25px 0px;
+            display: flex;
+            align-items: center;
+            nav{
+                a{
+                    padding: 0px 10px;
+                }
+            } 
+            div{
+                padding: 0;
+                .container__SH{
+                    width: 45px;
+                    height: 45px;
+                    display: block;
+                    background: black;
+                    color: white;
+                    font-size: 17px;
+                    padding: 10px;
+                }
+            }
+        }
+        main {
+            background: #fff; 
+            .wraper{
+                h1{
+                    text-align: center;
+                    margin: 145px 145px 0 145px;
+                    font-size: 45px;
+                    font-weight: 400;
+                }
+                .wraper__slogan{
+                    color: #C1C1C1;
+                    text-align: center;
+                    font-style: italic;
+                }
+                .wraper__look-new{
+                    text-align: center;
+                    width: 100%;
+                    .wraper__look-new__item{
+                        padding: 15px;
+                        display: inline-block;
+                        margin: 30px;
+                        border: 2px double #F2F1F1;
+                    }
+                }
+
+                .wraper__gooods-block{
+                    display: flex;
+                  .wraper__gooods-block__block{
+                      padding: 0;
+                      min-height: 600px;
+                      border: 1px solid black;
+                    .wraper__gooods-block__block__2block{
+                       min-height: 600px;
+                       width: 100%;
+                       border: 1px solid black;
+                    }
+                    .wraper__gooods-block__block__1block{
+                        min-height: 300px;
+                        width: 100%;
+                        border: 1px solid black;
+                    }
+                  }
+                }
+            }
+        }
+        footer{
+            .footer-info{
+                display:flex;
+                .footer-info__icons-social{
+                    display:flex;
+                }
+            }
+        }
+    }
+}

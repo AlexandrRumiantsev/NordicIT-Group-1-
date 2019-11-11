@@ -1,0 +1,103 @@
+body {
+  background: #F0EEEE;
+}
+
+body .container {
+  background: #fff;
+}
+
+body .container header {
+  border-bottom: 1px solid #F2F1F1;
+  margin: 30px 0px;
+  padding: 25px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .container header nav a {
+  padding: 0px 10px;
+}
+
+body .container header div {
+  padding: 0;
+}
+
+body .container header div .container__SH {
+  width: 45px;
+  height: 45px;
+  display: block;
+  background: black;
+  color: white;
+  font-size: 17px;
+  padding: 10px;
+}
+
+body .container main {
+  background: #fff;
+}
+
+body .container main .wraper h1 {
+  text-align: center;
+  margin: 145px 145px 0 145px;
+  font-size: 45px;
+  font-weight: 400;
+}
+
+body .container main .wraper .wraper__slogan {
+  color: #C1C1C1;
+  text-align: center;
+  font-style: italic;
+}
+
+body .container main .wraper .wraper__look-new {
+  text-align: center;
+  width: 100%;
+}
+
+body .container main .wraper .wraper__look-new .wraper__look-new__item {
+  padding: 15px;
+  display: inline-block;
+  margin: 30px;
+  border: 2px double #F2F1F1;
+}
+
+body .container main .wraper .wraper__gooods-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body .container main .wraper .wraper__gooods-block .wraper__gooods-block__block {
+  padding: 0;
+  min-height: 600px;
+  border: 1px solid black;
+}
+
+body .container main .wraper .wraper__gooods-block .wraper__gooods-block__block .wraper__gooods-block__block__2block {
+  min-height: 600px;
+  width: 100%;
+  border: 1px solid black;
+}
+
+body .container main .wraper .wraper__gooods-block .wraper__gooods-block__block .wraper__gooods-block__block__1block {
+  min-height: 300px;
+  width: 100%;
+  border: 1px solid black;
+}
+
+body .container footer .footer-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body .container footer .footer-info .footer-info__icons-social {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+/*# sourceMappingURL=style.css.map */
