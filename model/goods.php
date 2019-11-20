@@ -1,18 +1,13 @@
 <?php
 
-require_once 'db.php';
-
-class goods{
+class goods extends db{
     function getList(){
         $query = "select * from goods";
         return "qq";
     }
     function __construct($link) {
-        //parent::connect('localhost');
-        return $this -> getList($link);
+        $linkFromParent = parent::extendConnect('localhost');
+        return $this -> getList($linkFromParent);
         return 'test';
       }
 }
-
-//тест подключения
-//$test = new goods();
