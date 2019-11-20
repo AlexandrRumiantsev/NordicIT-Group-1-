@@ -28,4 +28,4 @@
                     </div>
                 </div>
             </footer>
-            <script src='http://<?=$_SERVER["SERVER_NAME"]?>/script.js'></script>
+            <script src='http://<?=$_SERVER["SERVER_NAME"]?>:<?=$_SERVER['SERVER_PORT']?>/script.js'></script>

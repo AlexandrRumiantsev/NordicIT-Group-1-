@@ -518,6 +518,10 @@ section .container__basket.row {
           justify-content: center;
 }
 
+.container.details-page .details-page__size .details-page__size__item.active {
+  border: 1px solid red;
+}
+
 .container.details-page .details-page__discroption {
   width: 55%;
   text-align: center;

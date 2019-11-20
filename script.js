@@ -1,3 +1,9 @@
+Array.from(document.getElementsByClassName('details-page__size__item')).forEach(function(element){
+    element.addEventListener('click' , function(){
+      this.classList.toggle("active");
+    })
+});
+
 if(document.getElementById('title_basket') != null){
   document.getElementById('title_basket').addEventListener('click' , function(){
     document.getElementsByTagName("body")[0].animate([ 
@@ -28,50 +34,27 @@ document.getElementById('add-container__minuse').addEventListener('click', funct
     }else alert('Меньше 0 нельзя купить');
     
 })
-//Установка начальных значений для товара
-if(document.getElementById('target_basket')){
-  if( 
-    document.getElementById('target_basket').dataset.value==null  || 
-    document.getElementById('target_basket').dataset.value == '' || 
-    document.getElementById('target_basket').dataset.value == 0
-  ){
-      var dataset = {};
-      dataset.good = {};
-      dataset.good.id = 1;
-      dataset.good.img = "re";
-      dataset.good.title = "Куртка замшевая";
-      dataset.good.price = "retert";
-      dataset.good.size = "retert";
-      dataset.good.count = 0;
-
-      if(document.getElementById('add_basket'))
-          document.getElementById('add_basket').dataset.value = JSON.stringify(dataset);
-      document.getElementById('target_basket').innerHTML = document.getElementById('target_basket').dataset.value;
-      
-      if(window.location.href == 'http://magazine/'){
-      
-      }else{
-        /*
-        document.getElementById('title_basket').classList.add("active");
-        document.getElementById('title_basket').innerHTML = 'Выбран товар "' + dataset.good.title + '" ';
-        var btn = document.createElement('button');
-        btn.innerText = 'Перейти в корзину';
-        */
         var btn = document.getElementById('add_basket');
         btn.onclick = function(event){
           event.stopPropagation();
           
           var http = new XMLHttpRequest();
-               var url = '#';
-               var params = 'good='+dataset.good.title+'&count=' + document.getElementById('target_basket').dataset.count;
+               var url = '../model/basket.php';
+               var title = document.getElementsByTagName('h1')[0].innerText; 
+               var count = document.getElementById('add-container__number').innerText;  
+               var size = document.querySelector('.details-page__size__item.active').innerText;
+               var price =  document.getElementsByClassName('details-page__price')[0].innerText;
+               var params = "title="+title+"&count="+count+"&size="+size+"&price="+price;
+               
+              
+               
                http.open('POST', url, true);
                
                http.onreadystatechange = function() {
                    if(http.readyState == 4 && http.status == 200) {
-                       console.log(http.responseText);
+                       console.log(http.response);
                        setTimeout(function(){
                          document.getElementById('overlay').remove();
-                         alert('Товар добавлен в вашу корзину далее будет реализован переход в корзину в количестве = ' + document.getElementById('add-container__number').innerText);
                        }, 1000);
                    }
                }
@@ -93,38 +76,12 @@ if(document.getElementById('target_basket')){
                document.getElementsByTagName('body')[0].appendChild(overlay);
 
                console.log('Начало отправки');
+               http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+               http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                http.send(params);
         }
-      }
-    
-  }
-}
 
 
-if(getCookiesAll() != ''){
-  var mainObj = {}
-  Object.keys(getCookiesAll()).forEach(function (item, key) {
-        console.log(  getCookiesAll() );
-        var count_goods = JSON.parse( getCookiesAll()[item] );
-        if(count_goods['good'] == undefined ){
-          var pre = count_goods;
-        }else var pre = count_goods['good'];
-
-        console.log(pre['id'] );
-        console.log(pre['title'] );
-        console.log(pre['count'] ); 
-        mainObj.id =  pre['id'];
-        mainObj.title =  pre['title'];
-        mainObj.count =  pre['count'];
-        setCookie( pre['id'] , JSON.stringify(mainObj) )
-  });
-
-  console.log(Number(document.getElementById('target_basket').innerHTML));
-
-  document.getElementById('target_basket').innerHTML = Number(document.getElementById('target_basket').innerHTML) + mainObj['count'];
-  document.getElementById('target_basket').setAttribute('data-count', mainObj['count']);
-  console.log(mainObj['count']);
-}
 
 
 var TIME = 3*24*60*60*1000; //3 дня
@@ -165,29 +122,6 @@ function getCookie(name) {
     }
 }
 
-if( document.getElementById('add_basket') != null ){
-        document.getElementById('add_basket').addEventListener( 'click' , function(){
-        var nameGood = JSON.parse(document.getElementById('add_basket').dataset.value).good.title;
-        var obj = JSON.parse(document.getElementById('add_basket').dataset.value).good;
-        var summ = obj.count + 1
-        obj.count = summ;
-        var jsonToForm = {}
-        jsonToForm.good = obj;
-        var originJSON = JSON.stringify(jsonToForm);
-        document.getElementById('add_basket').dataset.value = originJSON;
-        var arrData = JSON.stringify(obj); 
-        setCookie( obj.id , originJSON);
-
-        console.log(document.getElementById('target_basket').dataset.count);
-        console.log(obj['count']);
-
-        document.getElementById('target_basket').dataset.count = Number(document.getElementById('target_basket').dataset.count) + Number(obj['count']);
-
-        document.getElementById('target_basket').innerHTML =+ obj['count'];
-        document.getElementById('target_basket').setAttribute('data-value',  obj['count']);
-        
-        })
-}
 
 
 document.getElementById('SH').addEventListener('click', function(){

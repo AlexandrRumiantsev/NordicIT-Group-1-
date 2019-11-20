@@ -2,14 +2,15 @@
 
 require_once 'db.php';
 
-class goods extends database\db{
+class goods{
     function getList(){
         $query = "select * from goods";
-        return var_dump("qq");
+        return "qq";
     }
-    function __construct() {
-        var_dump(parent::connect('localhost'));
-        return $this -> getList();
+    function __construct($link) {
+        //parent::connect('localhost');
+        return $this -> getList($link);
+        return 'test';
       }
 }
 

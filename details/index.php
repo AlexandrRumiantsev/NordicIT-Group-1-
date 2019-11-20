@@ -5,11 +5,11 @@
     margin-top: 0px;
   }
 </style>   
-
+<?php var_dump($_POST) ?>
 <div class='container details-page'>
 
     <div class='container details-page__container-img'>
-        <img src="http://<?php echo $_SERVER["SERVER_NAME"].'/img/catalog/9.jpg'?>">
+        <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/9.jpg'?>">
     </div>
     <div class='container details-page__title'>
         <h1>КЕДЫ С ПОЛОСКОЙ</h1>

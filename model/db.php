@@ -1,7 +1,6 @@
 <?php
 
-namespace database
-{
+
     class db {
     
       private $login = 'root';
@@ -13,16 +12,10 @@ namespace database
         return $link;
       }
 
-      function test() {
-          return 'test';
-      }
-
-
       function __construct($host) {
         return $this -> connect($host);
       }
-    }
-}   
+    } 
 
 //подключения c конструктором
 //$test = new db('localhost');

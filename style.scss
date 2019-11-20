@@ -420,6 +420,9 @@ body{
                     border: 1px solid;
                     display: flex;
                     justify-content: center;
+                    &.active{
+                         border: 1px solid red;
+                    }
                 }
             }
             .details-page__discroption{

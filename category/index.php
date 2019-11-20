@@ -1,20 +1,25 @@
 <?php 
-include_once "../header.php";
-include_once "../model/goods.php";
-/*
-$d = new  goods();
-$d -> getList();
+var_dump(include_once "../header.php"); 
+var_dump(include_once "../model/db.php"); 
+var_dump(include_once "../model/goods.php"); 
+
+var_dump(
+    new goods(
+        new db('localhost')
+    )
+);
 
 $connection = new mysqli("localhost","root","root",'magazine_lesson');
 $query = "select * from goods";
 $result = $connection->query($query);
+
 while($row = mysqli_fetch_array($result))
 {
-echo "Наименование: ".$row['title']."<br>";
-echo "Цена: ".$row ['price']."<br>"
+    echo "Наименование: ".$row['title']."<br>";
+    echo "Цена: ".$row ['price']."<br>";
 }
-*/
-$d = new  goods();
+
+
 
 
 ?> 

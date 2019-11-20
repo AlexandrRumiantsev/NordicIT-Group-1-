@@ -17,7 +17,19 @@
         <div class='col-sm-1'>Удалить</div>
       </div>
       <div id='content-basket'>
+      <?php
+        $connection = new mysqli("localhost","root","root",'magazine_lesson');
+        $query = "select * from basket";
+        $result = $connection->query($query);
 
+        while($row = mysqli_fetch_array($result))
+        {
+            echo "Наименование: ".$row['good']."<br>";
+            echo "Цена: ".$row ['price']."<br>";
+            echo "Количество: ".$row ['count']."<br>";
+            echo "Размер: ".$row ['size']."<br>";
+        }
+       ?> 
       </div>
      
 </main>
@@ -47,8 +59,6 @@
         </div>
       </div>
       */
-       document.getElementById('content-basket');
-       console.log(localStorage);
      </script>
     <?php include_once "../footer.php"?>
 </footer>
