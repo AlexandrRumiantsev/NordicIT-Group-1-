@@ -46,6 +46,11 @@
 </div>
 
     <div class='add-container'>
+        <div>
+            <span id='add-container__minuse'><i class="fas fa-minus-circle"></i></span>
+            <span id='add-container__number'>0</span>
+            <span id='add-container__plus'><i class="fas fa-plus-circle"></i></span>
+        </div>
         <span id='add_basket' data-value=''>
             Добавить в корзину
         </span>

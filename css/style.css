@@ -527,6 +527,26 @@ section .container__basket.row {
   text-align: center;
 }
 
+.container .add-container div {
+  padding-bottom: 15px;
+}
+
+.container .add-container #add-container__minuse {
+  font-family: FontAwesome !important;
+}
+
+.container .add-container #add-container__minuse .fa-minus-circle {
+  font-style: normal;
+}
+
+.container .add-container #add-container__plus {
+  font-family: FontAwesome !important;
+}
+
+.container .add-container #add-container__plus .fa-plus-circle {
+  font-style: normal;
+}
+
 .container .add-container #add_basket {
   padding: 10px;
   background: orange;

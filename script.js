@@ -18,7 +18,16 @@ if(document.getElementById('title_basket') != null){
   })
 }
 
-
+//События корзины
+document.getElementById('add-container__plus').addEventListener('click', function(){
+     document.getElementById('add-container__number').innerText = Number(document.getElementById('add-container__number').innerText)+1;
+})
+document.getElementById('add-container__minuse').addEventListener('click', function(){
+    if( Number(document.getElementById('add-container__number').innerText)-1 >= 0){
+      document.getElementById('add-container__number').innerText = Number(document.getElementById('add-container__number').innerText)-1;
+    }else alert('Меньше 0 нельзя купить');
+    
+})
 //Установка начальных значений для товара
 if(document.getElementById('target_basket')){
   if( 
@@ -42,10 +51,13 @@ if(document.getElementById('target_basket')){
       if(window.location.href == 'http://magazine/'){
       
       }else{
+        /*
         document.getElementById('title_basket').classList.add("active");
         document.getElementById('title_basket').innerHTML = 'Выбран товар "' + dataset.good.title + '" ';
         var btn = document.createElement('button');
         btn.innerText = 'Перейти в корзину';
+        */
+        var btn = document.getElementById('add_basket');
         btn.onclick = function(event){
           event.stopPropagation();
           
@@ -59,7 +71,7 @@ if(document.getElementById('target_basket')){
                        console.log(http.responseText);
                        setTimeout(function(){
                          document.getElementById('overlay').remove();
-                         alert('Товар добавлен в вашу корзину далее будет реализован переход в корзину в количестве = ' + document.getElementById('target_basket').dataset.count);
+                         alert('Товар добавлен в вашу корзину далее будет реализован переход в корзину в количестве = ' + document.getElementById('add-container__number').innerText);
                        }, 1000);
                    }
                }
@@ -83,8 +95,6 @@ if(document.getElementById('target_basket')){
                console.log('Начало отправки');
                http.send(params);
         }
-
-        document.getElementById('title_basket').appendChild(btn); 
       }
     
   }

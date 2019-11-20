@@ -430,12 +430,33 @@ body{
         }
 
         .add-container{
+            div{
+                padding-bottom: 15px;
+            }
             text-align: center;
+            #add-container__minuse{
+                font-family: FontAwesome !important;
+                .fa-minus-circle{
+                    font-style: normal;
+                }
+                
+            }
+            #add-container__number{
+
+            }
+            #add-container__plus{
+
+                font-family: FontAwesome !important;
+                .fa-plus-circle{
+                    font-style: normal;
+                }
+            }
             #add_basket{
                padding: 10px;
                background: orange;
                color: white;
             }
+
         }
         footer{
             margin-top: 55px;
