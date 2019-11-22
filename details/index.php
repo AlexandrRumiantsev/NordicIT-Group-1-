@@ -5,7 +5,6 @@
     margin-top: 0px;
   }
 </style>   
-<?php var_dump($_POST) ?>
 <div class='container details-page'>
 
     <div class='container details-page__container-img'>

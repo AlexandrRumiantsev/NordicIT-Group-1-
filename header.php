@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php 
+error_reporting(0);
+$g_root = $_SERVER['DOCUMENT_ROOT'];
+include_once($g_root.'/model/basket.php');
+?>
+
 <html>
     <head>
     <meta charset="utf-8">
@@ -37,11 +43,17 @@
                     <span class='container__basket'>
                         <img src=<?php echo 'http://'.$_SERVER['HTTP_HOST'] ."\img\icons\bascet.png"?>> 
                         <?php if($_SERVER['PHP_SELF']=='/basket/index.php'):?>
-                               <span class="container__basket__title">Корзина</span>
+                               <span class="container__basket__title">
+                               Корзина(<?php new Basket('count') ?>)
+                               </span>
                         <?php else: ?>
                             
-                                <span id='title_basket'>Корзина</span>(<b data-value='0' id='target_basket'></b>)
-                            
+                                <span id='title_basket'>Корзина</span>(
+                                        <b data-value='0' id='target_basket'>
+                                            <?php new Basket('count') ?>
+                                        </b>
+                                    )
+        
                         <?php endif ?>    
                     </span>
                 </div>    

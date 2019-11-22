@@ -1,3 +1,9 @@
+Array.from(document.getElementsByClassName('del-item-basket')).forEach(function(element){
+  element.onclick = function(){
+       alert('Удалить товар');
+  };
+});
+
 Array.from(document.getElementsByClassName('details-page__size__item')).forEach(function(element){
     element.addEventListener('click' , function(){
       this.classList.toggle("active");
@@ -25,60 +31,66 @@ if(document.getElementById('title_basket') != null){
 }
 
 //События корзины
-document.getElementById('add-container__plus').addEventListener('click', function(){
+if(document.getElementById('add-container__plus')){
+  document.getElementById('add-container__plus').addEventListener('click', function(){
      document.getElementById('add-container__number').innerText = Number(document.getElementById('add-container__number').innerText)+1;
-})
-document.getElementById('add-container__minuse').addEventListener('click', function(){
-    if( Number(document.getElementById('add-container__number').innerText)-1 >= 0){
-      document.getElementById('add-container__number').innerText = Number(document.getElementById('add-container__number').innerText)-1;
-    }else alert('Меньше 0 нельзя купить');
-    
-})
+  })
+}
+if(document.getElementById('add-container__plus')){
+  document.getElementById('add-container__minuse').addEventListener('click', function(){
+      if( Number(document.getElementById('add-container__number').innerText)-1 >= 0){
+        document.getElementById('add-container__number').innerText = Number(document.getElementById('add-container__number').innerText)-1;
+      }else alert('Меньше 0 нельзя купить');
+  })
+}
         var btn = document.getElementById('add_basket');
-        btn.onclick = function(event){
-          event.stopPropagation();
-          
-          var http = new XMLHttpRequest();
-               var url = '../model/basket.php';
-               var title = document.getElementsByTagName('h1')[0].innerText; 
-               var count = document.getElementById('add-container__number').innerText;  
-               var size = document.querySelector('.details-page__size__item.active').innerText;
-               var price =  document.getElementsByClassName('details-page__price')[0].innerText;
-               var params = "title="+title+"&count="+count+"&size="+size+"&price="+price;
-               
-              
-               
-               http.open('POST', url, true);
-               
-               http.onreadystatechange = function() {
-                   if(http.readyState == 4 && http.status == 200) {
-                       console.log(http.response);
-                       setTimeout(function(){
-                         document.getElementById('overlay').remove();
-                       }, 1000);
-                   }
-               }
-               
-               var overlay = document.createElement('div');
-               overlay.id = 'overlay';
-              
-               var lds = document.createElement('div');
-               lds.className = 'lds-ripple';
+        if(btn){
+          btn.onclick = function(event){
+            event.stopPropagation();
+            
+            var http = new XMLHttpRequest();
+                var url = '../model/basket.php';
+                var title = document.getElementsByTagName('h1')[0].innerText; 
+                var count = document.getElementById('add-container__number').innerText;  
+                var size = document.querySelector('.details-page__size__item.active').innerText;
+                var price =  document.getElementsByClassName('details-page__price')[0].innerText;
+                var img =  document.querySelectorAll('.details-page__container-img img')[0].src;
+                var params = "title="+title+"&count="+count+"&size="+size+"&price="+price+"&img="+img;
+                
+                
+                
+                http.open('POST', url, true);
+                
+                http.onreadystatechange = function() {
+                    if(http.readyState == 4 && http.status == 200) {
+                        console.log(http.response);
+                        setTimeout(function(){
+                          document.getElementById('overlay').remove();
+                        }, 1000);
+                    }
+                }
+                
+                var overlay = document.createElement('div');
+                overlay.id = 'overlay';
+                
+                var lds = document.createElement('div');
+                lds.className = 'lds-ripple';
 
-               var ldsSubOne = document.createElement('div');
-               var ldsSubTwo = document.createElement('div');
-               
-               overlay.appendChild(lds);
-               lds.appendChild(ldsSubOne);
-               lds.appendChild(ldsSubTwo);
-               
-      
-               document.getElementsByTagName('body')[0].appendChild(overlay);
+                var ldsSubOne = document.createElement('div');
+                var ldsSubTwo = document.createElement('div');
+                
+                overlay.appendChild(lds);
+                lds.appendChild(ldsSubOne);
+                lds.appendChild(ldsSubTwo);
+                
+        
+                document.getElementsByTagName('body')[0].appendChild(overlay);
 
-               console.log('Начало отправки');
-               http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-               http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-               http.send(params);
+                console.log('Начало отправки');
+                http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                http.send(params);
+          }
         }
 
 
@@ -163,7 +175,7 @@ document.getElementById('enter').addEventListener('click', function(){
               
             
                var http = new XMLHttpRequest();
-               var url = './model/user.php';
+               var url = window.location.origin + '/model/user.php';
                var params = 'orem=ipsum&name=binny';
                http.open('POST', url, true);
 

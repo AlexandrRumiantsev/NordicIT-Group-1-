@@ -13,7 +13,7 @@
       }
       function extendConnect($host) {
         $link = new mysqli( $host, $this->login, $this->pass, $this->name_base );
-        var_dump($link);
+        return $link;
       }
 
       function __construct($host) {

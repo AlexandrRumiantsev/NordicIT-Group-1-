@@ -466,7 +466,15 @@ body{
         }
 
     } 
-    
+    #content-basket{
+      .row{
+          .col-sm-2{
+            img{
+                width: 100%;
+            }
+          }
+      }
+    }
     //Стили спинера
     .lds-ripple {
         top: 45%;
