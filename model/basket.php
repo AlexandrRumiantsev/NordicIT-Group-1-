@@ -1,5 +1,18 @@
 <?php
 include_once 'db.php';
+
+/**
+ * Описание
+ * 
+ * Текст описания
+ *
+ * @package Backend
+ * @category Basket
+ * @author Coder RU <r-sasha@list.ru>
+ * @version 1.1
+ * @copyright Copyright (c) 2019, Coder RU
+ */
+
 class Basket extends db{
     //Атрибуты
     private $good  ;

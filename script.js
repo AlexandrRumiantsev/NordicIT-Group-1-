@@ -1,3 +1,23 @@
+//Эмитация контроллера, на основе анонимной функции
+(function() {
+  
+  switch(window.location.pathname){
+    case '/': 
+       console.log('главная страница');
+    break;
+    case '/details/': 
+       console.log('Детализация товара');
+    break;
+    case '/basket/': 
+       console.log('Корзина');
+    break;
+    case '/category/': 
+    console.log('Список товаров по категории');
+    break;
+    }
+
+})();
+
 Array.from(document.getElementsByClassName('del-item-basket')).forEach(function(element){
   element.onclick = function(){
        alert('Удалить товар');
