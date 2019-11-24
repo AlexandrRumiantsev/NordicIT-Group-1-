@@ -1,6 +1,6 @@
 //Эмитация контроллера, на основе анонимной функции
 (function() {
-  
+
   switch(window.location.pathname){
     case '/': 
        console.log('главная страница');
@@ -12,7 +12,7 @@
        console.log('Корзина');
     break;
     case '/category/': 
-    console.log('Список товаров по категории');
+        console.log('Список товаров по категории');
     break;
     }
 

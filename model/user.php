@@ -1,7 +1,7 @@
 <?php
 include_once 'db.php';
 /**
-* Имя или краткое описание объекта
+* User , Модель юзера в базе данных
 * 
 * Развернутое описание
 * 
@@ -58,6 +58,7 @@ class User extends db{
             $this -> setPassword();
             $this -> setMail();
             $this -> save($linkFromParent);
+            
         }
     }
 }

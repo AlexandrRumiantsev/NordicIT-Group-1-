@@ -20,8 +20,11 @@ class Basket extends db{
     private $count ;
     private $size ;
     //Методы
-    function setGood(){
+    function setGood($dop){
         $this -> good = strip_tags($_REQUEST['title']);
+        if($_REQUEST['title'] == ''){
+            echo 'Метод не сработал';
+        }
     }
     function getGood(){
         return $this -> good;
@@ -111,10 +114,18 @@ class Basket extends db{
             $this -> save($linkFromParent);
         }
         if($count == 'list'){
+            //var_dump($this -> getGood());
             $this -> listDisplay($linkFromParent);
         }
+        if($count == 'testscript'){
+            echo "<script>alert('код js в php')</script>";
+        }
+        
     }
 }
-if($_REQUEST['title'])
+if($_REQUEST['title']){
     new Basket('save');
+    
+}
+//new Basket('testscript');
 ?>
