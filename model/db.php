@@ -16,7 +16,7 @@
         return $link;
       }
 
-      function __construct($host) {
+      function __construct($host='') {
         return $this -> connect($host);
       }
     } 

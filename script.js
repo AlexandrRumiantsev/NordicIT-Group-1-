@@ -5,7 +5,25 @@
     case '/': 
        console.log('главная страница');
     break;
-    case '/details/': 
+    case '/category/details/':
+        (function OnLoad() {
+          var url = location.origin + '/model/goods.php';
+           var http = new XMLHttpRequest();
+           http.open('POST', url, true);
+           var params = window.location.search.substr(1);     
+           http.onreadystatechange = function() {
+               if(http.readyState == 4 && http.status == 200) {
+                var arr = JSON.parse(http.response);
+                document.querySelector(".details-page__title h1").innerText = arr['title'];
+                document.querySelector(".details-page__container-img img").src =  window.location.origin + '/img/catalog/' + arr['img'];
+                document.querySelector(".container .details-page__price i").innerText =  arr['price'];                 
+               }
+           }
+           http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+           http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+           http.send(params);
+
+        })();  
        console.log('Детализация товара');
     break;
     case '/basket/': 
@@ -17,6 +35,17 @@
     }
 
 })();
+
+Array.from(document.getElementsByClassName('category-page__goods-list__item')).forEach(function(element){
+  
+  
+  element.onclick = function(){
+    var id = JSON.parse(this.querySelector("div header").innerText)['id'];    
+    window.open(window.location.href += 'details?id=' + id);          
+  };
+  
+
+});
 
 Array.from(document.getElementsByClassName('del-item-basket')).forEach(function(element){
   element.onclick = function(){

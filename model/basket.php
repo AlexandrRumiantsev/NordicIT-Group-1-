@@ -125,7 +125,8 @@ class Basket extends db{
 }
 if($_REQUEST['title']){
     new Basket('save');
-    
 }
+if($_POST)  
+    echo 'post';
 //new Basket('testscript');
 ?>

@@ -1,12 +1,11 @@
 <?php 
-include_once "../header.php"; 
-include_once "../model/db.php"; 
-include_once "../model/goods.php"; 
+$g_root = $_SERVER['DOCUMENT_ROOT'];
+include_once($g_root.'/header.php');
+include_once($g_root.'/model/db.php');
+include_once($g_root.'/model/goods.php');
 
-$result = 
-    new goods(
-        new db('localhost')
-    );
+$goods = new goods;
+$list = $goods -> getList();
 ?> 
 
 <main> 
@@ -23,138 +22,21 @@ $result =
                     <div class='category-page__goods-list container'>
 
                         <div class='row'>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header>  </header>
-                            <main>
-                                <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/1.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар 111</p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header>  </header>
-                            <main>
-                            <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/2.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header>  </header>
-                            <main>
-                                <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/3.png'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header> </header>
-                            <main>
-                            <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/4.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header> </header>
-                            <main>
-                                <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/5.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header>  </header>
-                            <main>
-                                <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/6.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header> </header>
-                            <main>
-                                <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/7.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header>  </header>
-                            <main>
-                                <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/8.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header>  </header>
-                            <main>
-                                <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/9.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header>  </header>
-                            <main>
-                                <img class='full' src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/10.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header> </header>
-                            <main>
-                                <img  src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/11.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
-
-                        <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
-                            <header>  </header>
-                            <main>
-                                <img class='full' src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/12.jpg'?>">
-                            </main>
-                            <footer> 
-                                <p>Товар </p>
-                                <p>Цена товара</p>
-                            </footer>
-                        </div>
+                        <?php
+                        while ($row = $list->fetch_assoc()) 
+                            {?> 
+                            <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
+                                <header> <?=json_encode($row)?> </header>
+                                <main>
+                                    <img src="http://<?=$_SERVER["SERVER_NAME"]?>:8888/img/catalog/<?=$row['img']?>"/>
+                                </main>
+                                <footer> 
+                                    <p><?=$row["title"]?></p>
+                                    <p><?=$row["price"]?></p>
+                                </footer>
+                            </div>    
+                        <?php } ?>
+                        
 
                         </div>
 

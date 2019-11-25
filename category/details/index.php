@@ -1,4 +1,9 @@
-<?php include_once "../header.php"; ?>
+<?php 
+$g_root = $_SERVER['DOCUMENT_ROOT'];
+include_once($g_root.'/header.php'); 
+
+include_once($g_root.'/goods.php'); 
+?>
 
 <style>
   html body .footer-info {
@@ -55,5 +60,6 @@
         </span>
     </div>
 <?php 
-include_once "../footer.php" 
+$g_root = $_SERVER['DOCUMENT_ROOT'];
+include_once($g_root.'/footer.php'); 
 ?> 

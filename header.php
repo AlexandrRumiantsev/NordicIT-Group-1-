@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php 
-error_reporting(0);
+error_reporting(1);
 $g_root = $_SERVER['DOCUMENT_ROOT'];
 include_once($g_root.'/model/basket.php');
 ?>

@@ -1,4 +1,7 @@
-<?php include_once "./header.php" ?>
+<?php
+$g_root = $_SERVER['DOCUMENT_ROOT'];
+include_once($g_root.'/header.php'); 
+?>
             <main> 
                 <div class='wraper'> 
 
@@ -86,7 +89,9 @@
                 </div> 
             </main>
             
-            <?php include_once "./footer.php" ?>
+            <?php 
+            include_once($g_root.'/footer.php'); 
+            ?>
 
         </div>
     </body>

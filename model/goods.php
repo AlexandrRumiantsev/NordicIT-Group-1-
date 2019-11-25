@@ -1,27 +1,28 @@
 <?php
-/**
-* Имя или краткое описание объекта
-* 
-* Развернутое описание
-* 
-* @имя_тега значение
-* @return тип_данных
-*/
+include_once 'db.php';
+
 class goods extends db{
-    function displayTemplate($res){
-        while($row = mysqli_fetch_array($res))
-        {?>
-            <p>Наименование:<?=$row['title']?></p>
-            <p>Цена:<?=$row['price']?></p>
-        <?}
-    }
-    function getList($link){
-        $query = "select * from goods";
-        $result = $link->query($query);   
-        $this -> displayTemplate($result);
-    }
-    function __construct($link) {
+    
+   
+    function getItem($id){
         $linkFromParent = parent::extendConnect('localhost');
-        return $this -> getList($linkFromParent);
-      }
+        $query = "select * from goods where id=".$id;
+        $result = $linkFromParent->query($query); 
+        return $result;
+    }
+    function getList(){
+        $linkFromParent = parent::extendConnect('localhost');
+        $query = "select * from goods";
+        $result = $linkFromParent->query($query); 
+        return $result;
+    }
+    
 }
+if($_POST){
+    $item  = new goods;
+     $i = $item -> getItem($_POST['id']);
+     while ($row = $i->fetch_assoc()) {
+        echo json_encode($row);
+    }
+}
+     
