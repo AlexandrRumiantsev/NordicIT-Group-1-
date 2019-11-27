@@ -25,6 +25,9 @@ include_once($g_root.'/model/basket.php');
     </head>
     <body>
         <div class='container'>
+            <?php 
+                $USER = (array) json_decode($_COOKIE['json']);
+             ?>
             <header> 
                 <div class='col-sm-1'> 
                     <span id='SH' class='container__SH'>
@@ -41,7 +44,14 @@ include_once($g_root.'/model/basket.php');
                 <div class='col-sm-3'>
                     <span class='container__enter' id='enter'> 
                         <img src=<?php echo 'http://'.$_SERVER['HTTP_HOST'] ."\img\icons\account.png"?>>  
-                        Войти 
+                        <?php
+                        if($USER['login']){
+                            echo "<span id='log'>" .$USER['login'] ."</span>";
+                        }else{
+                            echo 'Войти';
+                        }    
+                        ?>
+                         
                     </span>
                     <span class='container__basket'>
                         <img src=<?php echo 'http://'.$_SERVER['HTTP_HOST'] ."\img\icons\bascet.png"?>> 

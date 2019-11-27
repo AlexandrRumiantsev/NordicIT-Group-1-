@@ -33,6 +33,21 @@ class User extends db{
     function getMail(){
         return $this -> mail;
     }
+    function login($connect){
+        $log = $this->getLogin();
+        $pass = $this->getPassword();
+
+        $sql = "SELECT * FROM `users` WHERE login = '$log' AND password = '$pass'";
+        $result = mysqli_query($connect, $sql); 
+        if($result){
+            //echo 'qqЗапрос успешно сработал';
+            while ($row = $result->fetch_assoc()) {
+               $res = json_encode($row);
+            }
+            setcookie('user', $res);
+            echo $res;
+        }else echo $sql; 
+    }
     function save($connect){
         $log = $this->getLogin();
         $pass = $this->getPassword();
@@ -51,16 +66,32 @@ class User extends db{
         }else echo $sql;           
     }
     //Конструктор
-    function __construct() {
-        if($_POST){
+    function __construct($action) {
+        $this -> setLogin();
+        $this -> setPassword();
+        
+
+        if($action == 'autorize'){
             $linkFromParent = parent::extendConnect('localhost');
-            $this -> setLogin();
-            $this -> setPassword();
+            $this -> login($linkFromParent);
+        }
+        else{
             $this -> setMail();
+            $linkFromParent = parent::extendConnect('localhost');
+            
             $this -> save($linkFromParent);
             
         }
     }
 }
-new User();
+
+
+
+
+if($_POST["autorize"]){
+    new User('autorize'); 
+}else{
+   new User(); 
+}
+
 ?>

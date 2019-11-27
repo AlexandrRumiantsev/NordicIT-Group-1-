@@ -57,6 +57,18 @@ body{
             padding: 25px 0px;
             display: flex;
             align-items: center;
+            .container__enter{
+                display: inline-block;
+                position: relative;
+                #ext{
+                    text-align: center;
+                    color: white;
+                    background: rgba(4, 1, 4, 0.8);
+                    width: 100%;
+                    position: absolute;
+                    cursor:pointer;
+                }
+            }
             nav{
                 a{
                     padding: 0px 10px;

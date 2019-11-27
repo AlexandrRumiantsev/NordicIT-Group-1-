@@ -4,6 +4,29 @@
   switch(window.location.pathname){
     case '/': 
        console.log('главная страница');
+       if(window.getCookiesAll()['json']){
+         console.log('User cookie');
+       }
+       if(document.getElementById('log'))
+          document.getElementById('log').addEventListener('click' , function(e){
+            e.stopPropagation();
+            if(this.classList[0] == "active"){
+              console.log( this.classList[0] );
+              document.getElementById('ext').remove();
+              this.classList = "";
+            }else{
+              this.classList.toggle("active");
+              var exit = document.createElement('p');
+              exit.innerText = 'выйти';
+              exit.id = 'ext';
+              exit.onclick = function(e){
+                e.stopPropagation();
+                console.log('ext');
+                setCookie('json' , '') ;
+              }
+              this.parentElement.appendChild(exit);
+            }
+       });
     break;
     case '/category/details/':
         (function OnLoad() {
@@ -35,6 +58,7 @@
     }
 
 })();
+
 
 Array.from(document.getElementsByClassName('category-page__goods-list__item')).forEach(function(element){
   
@@ -70,9 +94,7 @@ if(document.getElementById('title_basket') != null){
       }
     ], 1000);
     
-    function returnMainPage(){
-      window.location.href = location.origin + '/basket/';
-    }
+    
     
     setTimeout(returnMainPage, 2000);
     
@@ -142,49 +164,6 @@ if(document.getElementById('add-container__plus')){
           }
         }
 
-
-
-
-var TIME = 3*24*60*60*1000; //3 дня
-function setCookie (name, value) {
-	var time = new Date();
-	time.setTime(Date.parse(time) + TIME);
-	document.cookie = name + '=' + value + '; expires=' + time;
-}
-
-function getCookiesAll(){
-    var pairs = document.cookie.split(";");
-    var cookies = {};
-    for (var i=0; i<pairs.length; i++){
-      var pair = pairs[i].split("=");
-      cookies[(pair[0]+'').trim()] = unescape(pair.slice(1).join('='));
-    }
-    if(document.cookie==''){
-      return '';
-    }else return cookies;
-  }
-
-//https://learn.javascript.ru/cookie
-function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
-
-  function deleteAllCookies() {
-    var cookies = document.cookie.split(";");
-
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        var eqPos = cookie.indexOf("=");
-        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    }
-}
-
-
-
 document.getElementById('SH').addEventListener('click', function(){
     console.log(location.origin);
     
@@ -216,11 +195,45 @@ document.getElementById('enter').addEventListener('click', function(){
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
+        if(this.querySelector('h1').innerText == 'Авторизация'){
+            console.log('Авторизация');
+            var http = new XMLHttpRequest();
+               var url = window.location.origin + '/model/user.php';
+               var params = 'orem=ipsum&name=binny';
+               http.open('POST', url, true);
 
+               var formData = new FormData(document.getElementById("form-reg"));
+               
+               //http.setRequestHeader('Content-type', 'multipart/form-data');
+               function IsJsonString(str) {
+                    try {
+                        setCookie('json' , str);
+                    } catch (e) {
+                        return false;
+                    }
+
+                    return 'true';
+                }
+               http.onreadystatechange = function() {
+                   if(http.readyState == 4 && http.status == 200) {
+                    
+                    console.log(IsJsonString(http.responseText));
+              
+
+                       
+                       console.log('Конец отправки');
+                       document.getElementById('overlay').remove();
+                   }
+               }
+
+               console.log('Начало отправки');
+               http.send(formData);
+        }else{
                 /*
                 AJAX VANILA JS
                 https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started
                 */
+               console.log('Регистрация');
               
             
                var http = new XMLHttpRequest();
@@ -235,6 +248,7 @@ document.getElementById('enter').addEventListener('click', function(){
                http.onreadystatechange = function() {
                    if(http.readyState == 4 && http.status == 200) {
                        console.log(http.responseText);
+                       console.log(http);
                        console.log('Конец отправки');
                        document.getElementById('overlay').remove();
                    }
@@ -242,6 +256,9 @@ document.getElementById('enter').addEventListener('click', function(){
 
                console.log('Начало отправки');
                http.send(formData);
+        }
+
+                
 
                         return false;
                 });
@@ -275,12 +292,25 @@ document.getElementById('enter').addEventListener('click', function(){
     inputAutorize.id = 'autorize';
     inputAutorize.innerText = 'Авторизация';
 
+
+
     inputAutorize.onclick = function(){
       //alert('Авторизация');
+      var title = document.createElement('h1');
+      title.id = 'title';
+      title.innerText = 'Авторизация';
+      var hidden =  document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.name = 'autorize';
+      hidden.value = 'true';
       var form_autorize = document.getElementById('form-reg');
+      form_autorize.innerHTML = '';
+      form_autorize.appendChild(title);
       form_autorize.appendChild(inputLogin);
       form_autorize.appendChild(inputPassword);
+      form_autorize.appendChild(hidden);
       form_autorize.appendChild(inputSbm);
+      
     }
     
     form.appendChild(titleH1);
