@@ -3,6 +3,7 @@ $g_root = $_SERVER['DOCUMENT_ROOT'];
 include_once($g_root.'/header.php'); 
 
 include_once($g_root.'/goods.php'); 
+
 ?>
 
 <style>
@@ -13,19 +14,19 @@ include_once($g_root.'/goods.php');
 <div class='container details-page'>
 
     <div class='container details-page__container-img'>
-        <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/9.jpg'?>">
+        <img src="http://<?php echo $_SERVER["SERVER_NAME"].':8888/img/catalog/default.jpg'?>">
     </div>
     <div class='container details-page__title'>
-        <h1>КЕДЫ С ПОЛОСКОЙ</h1>
+        <h1>Шаблон для детализации товара</h1>
     </div>
     <div class='container details-page__artikul'>
-        <i>Артикул 34435345</i>
+        <i>Артикул ......</i>
     </div>
     <div class='container details-page__price'>
-        <i>12323123 руб.</i>
+        <i>Цена ........</i>
     </div>
     <div class='container details-page__discroption'>
-       Отличные кеды  из водонипроницаемого материала. Отлично подходят для любой погоды. Приятно сидят на ноге, стильные и комфортные.
+       Описание.........
     </div>
       <p> Размер<p>
     <div class='container details-page__size'>

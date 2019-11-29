@@ -40,7 +40,6 @@ class User extends db{
         $sql = "SELECT * FROM `users` WHERE login = '$log' AND password = '$pass'";
         $result = mysqli_query($connect, $sql); 
         if($result){
-            //echo 'qqЗапрос успешно сработал';
             while ($row = $result->fetch_assoc()) {
                $res = json_encode($row);
             }

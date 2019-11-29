@@ -20,7 +20,8 @@ include_once($g_root.'/model/basket.php');
      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/webfonts/fa-solid-900.woff2">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
       <script> 
-        <?php include_once($g_root.'/function.js'); ?>
+        <?php include_once($g_root.'/functions.js'); ?>
+        <?php include_once($g_root.'/functions.php'); ?>
       </script>
     </head>
     <body>
@@ -35,6 +36,7 @@ include_once($g_root.'/model/basket.php');
                     </span>
                 </div>
                 <nav class='col-sm-8'>
+                    <a href='/category'> Все </a>
                     <a> Женцинам </a>
                     <a> Мужчинам </a>
                     <a> Детям </a>
@@ -48,7 +50,7 @@ include_once($g_root.'/model/basket.php');
                         if($USER['login']){
                             echo "<span id='log'>" .$USER['login'] ."</span>";
                         }else{
-                            echo 'Войти';
+                            echo '<span>Войти</span>';
                         }    
                         ?>
                          

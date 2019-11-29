@@ -295,6 +295,9 @@ body{
         .category-page__goods-list{
         
             .category-page__goods-list__item{
+                header{
+                    display:none;
+                }
                 main{
                     border: 1px solid;
                     height: 300px;
@@ -399,7 +402,7 @@ body{
             }
             position: relative;
             img{
-               
+                height: 450px;
             }
             .details-page__container-img{
                 margin-bottom: 0;

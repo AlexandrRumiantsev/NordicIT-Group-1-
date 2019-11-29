@@ -354,6 +354,10 @@ body #overlay #form-reg input[type="submit"] {
   display: inline-block;
 }
 
+.category-page .category-page__goods-list .category-page__goods-list__item header {
+  display: none;
+}
+
 .category-page .category-page__goods-list .category-page__goods-list__item main {
   border: 1px solid;
   height: 300px;
@@ -484,6 +488,10 @@ section .container__basket.row {
 
 .container.details-page p {
   text-align: center;
+}
+
+.container.details-page img {
+  height: 450px;
 }
 
 .container.details-page .details-page__container-img {

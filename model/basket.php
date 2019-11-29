@@ -20,7 +20,8 @@ class Basket extends db{
     private $count ;
     private $size ;
     //Методы
-    function setGood($dop){
+    function setGood(){
+        echo $_REQUEST['title'];
         $this -> good = strip_tags($_REQUEST['title']);
         if($_REQUEST['title'] == ''){
             echo 'Метод не сработал';
