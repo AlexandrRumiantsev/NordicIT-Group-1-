@@ -6,6 +6,14 @@ include_once($g_root.'/model/goods.php');
 
 $goods = new goods;
 $list = $goods -> getList();
+//var_dump($list->fetch_assoc());
+//$z = '"Тестова строка"'; 
+//echo "<script>alert(".$z.")</script>"
+//Вариант с присвоением данных в JS в PHP цикле.
+
+//<header> <script>window.json[index] = <?=json_encode($row)
+/*?></script> </header>*/
+
 ?> 
 
 <main> 
@@ -28,7 +36,7 @@ $list = $goods -> getList();
                             <div class='category-page__goods-list__item col-md-3 margin0_padding0'> 
                                 <header> <?=json_encode($row)?> </header>
                                 <main>
-                                    <img src="http://<?=$_SERVER["SERVER_NAME"]?>:8888/img/catalog/<?=$row['img']?>"/>
+                                    <img src="http://<?=$_SERVER["SERVER_NAME"]?>:<?=$_SERVER['SERVER_PORT']?>/img/catalog/<?=$row['img']?>"/>
                                 </main>
                                 <footer> 
                                     <p><?=$row["title"]?></p>

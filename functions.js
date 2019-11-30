@@ -1,3 +1,5 @@
+//https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage 
+
 /**
   * Установка главной страницы сайта на позицию текущей.
  */
@@ -57,7 +59,7 @@ function loadScript(name){
   document.body.appendChild(script);
 
   script.onload = function() {
-    console.log('скрипт загружен');
+    console.log(name + 'скрипт загружен');
   };
 }
 

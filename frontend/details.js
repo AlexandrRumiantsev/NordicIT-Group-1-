@@ -8,7 +8,9 @@ var url = location.origin + '/model/goods.php';
                 document.querySelector(".details-page__title h1").innerText = arr['title'];
                 document.querySelector(".details-page__container-img img").src =  window.location.origin + '/img/catalog/' + arr['img'];
                 document.querySelector(".container .details-page__price i").innerText =  arr['price'];
-                document.querySelector(".container .details-page__discroption").innerText =  arr['discr'];                 
+                document.querySelector(".container .details-page__discroption").innerText =  arr['discr'];
+                console.log(arr['article']);
+                document.querySelector(".container .container .details-page__artikul i").innerText =  "Артикул: " + arr['article'];                  
                }
            }
            http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
