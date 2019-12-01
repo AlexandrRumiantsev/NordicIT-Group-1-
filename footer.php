@@ -1,11 +1,32 @@
+<?php 
+include_once($g_root.'/model/goods.php'); 
+$goods = new goods;
+?>
              <footer> 
                 <div class='footer-info'>  
                     <div class='col-sm-4'>
                         КОЛЛЕКЦИИ
-                        <div><a target='_blank' href='/woman'>Женцинам</a> (<?=10?>)</div>
-                        <div><a target='_blank' href='/man'>Мужчинам </a>(<?=10?>)</div>
-                        <div><a target='_blank' href='/children'>Детям </a>(<?=10?>)</div>
-                        <div><a target='_blank' href='/new'>Новинки </a>(<?=10?>)</div>
+                        <div>
+                        <a target='_blank' href='/category/?type=woman'>
+                            Женцинам
+                        </a> 
+                            (<?=$goods -> getCountCategory('woman')?>)
+                        </div>
+                        <div>
+                        <a target='_blank' href='/category/?type=men'>
+                            Мужчинам 
+                        </a>
+                            (<?=$goods -> getCountCategory('men')?>)</div>
+                        <div>
+                        <a target='_blank' href='/category/?type=children'>
+                            Детям 
+                        </a>
+                        (<?=$goods -> getCountCategory('children')?>)</div>
+                        <div>
+                        <a target='_blank' href='/category/?type=new'>
+                            Новинки 
+                        </a>
+                        (<?=$goods -> getCountCategory('new')?>)</div>
                     </div>
                     <div class='col-sm-4'>
                         МАГАЗИН

@@ -1,4 +1,4 @@
-<?php include_once "../header.php"; ?>
+<?php include_once "../header.php"; session_start(); ?>
 <section class='container'>
 <header>   
 </header>

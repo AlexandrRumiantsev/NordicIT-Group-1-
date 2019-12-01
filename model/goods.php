@@ -23,6 +23,15 @@ class goods extends db{
         $result = $linkFromParent->query($query); 
         return $result;
     }
+    function getCountCategory($type){
+        $linkFromParent = parent::extendConnect('localhost');
+        $sql = 'SELECT COUNT(*) FROM goods WHERE category="'.$type.'"';
+        $result = mysqli_query($linkFromParent, $sql); 
+        if($result){
+            $s = $result->fetch_assoc();
+            return $s["COUNT(*)"];
+        }else echo $sql;
+    }
     
 }
 if($_POST){

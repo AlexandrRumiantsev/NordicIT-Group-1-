@@ -123,6 +123,10 @@ if(document.getElementById('add-container__plus')){
           }
         }
 
+        /* 
+        Пример  анимированного перехода на страницу корзины
+        (убрал тк вызывает глюк с авторизацией)
+        
 document.getElementById('SH').addEventListener('click', function(){
     console.log(location.origin);
     
@@ -144,6 +148,7 @@ document.getElementById('SH').addEventListener('click', function(){
       
       setTimeout(returnMainPage, 2000);
 })
+*/
 
 
 
