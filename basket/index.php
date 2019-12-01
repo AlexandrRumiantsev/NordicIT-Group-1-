@@ -1,8 +1,6 @@
+<?php include_once "../header.php"; ?>
 <section class='container'>
-<header>
-       <?php 
-            include_once "../header.php";
-       ?>
+<header>   
 </header>
 <main class='basket'>
       <h1> ВАША КОРЗИНА </h1>

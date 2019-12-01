@@ -83,6 +83,7 @@ function reloadPage() {
   location.href=location.href;
 }
 
+
 /**
  * 
  * @param {*} to  - урл отправки запроса

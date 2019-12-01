@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <?php 
+session_start();
 error_reporting(1);
 $g_root = $_SERVER['DOCUMENT_ROOT'];
 include_once($g_root.'/model/basket.php');
+include_once($g_root.'/controller.php');
 ?>
 
 <html>
@@ -26,8 +28,26 @@ include_once($g_root.'/model/basket.php');
     </head>
     <body>
         <div class='container'>
-            <?php 
+            <?php
                 $USER = (array) json_decode($_COOKIE['json']);
+                if(count($USER) != 0){
+                     /*
+                     Для сохранения авторизации на всех страницах
+                     используем механизм сессии.
+                     При каждом заходе на главную страницу, проверяется 
+                     сохраненная в куке переменная и происходит старт сессии.
+                     Для работы сессии на локальном сервере, необходимо поменять
+                     значения в php.ini:
+        
+                        session.auto_start = 1
+                        session.cookie_lifetime = 1
+
+                     */
+                     session_start();
+                     $_SESSION['isAuth'] = true;
+                     $_SESSION['user_data'] = $USER;
+                     $_SESSION['login'] = $USER['login'];
+                }else $_SESSION['login'] = '';
              ?>
             <header> 
                 <div class='col-sm-1'> 
@@ -47,8 +67,8 @@ include_once($g_root.'/model/basket.php');
                     <span class='container__enter' id='enter'> 
                         <img src=<?php echo 'http://'.$_SERVER['HTTP_HOST'] ."\img\icons\account.png"?>>  
                         <?php
-                        if($USER['login']){
-                            echo "<span id='log'>" .$USER['login'] ."</span>";
+                        if($_SESSION['login']){
+                            echo "<span id='log'>" .$_SESSION['login'] ."</span>";
                         }else{
                             echo '<span>Войти</span>';
                         }    

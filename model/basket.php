@@ -1,6 +1,5 @@
 <?php
 include_once 'db.php';
-
 /**
  * Описание
  * 
@@ -13,7 +12,7 @@ include_once 'db.php';
  * @copyright Copyright (c) 2019, Coder RU
  */
 
-class Basket extends db{
+    class Basket extends db{
     //Атрибуты
     private $good  ;
     private $price ;
@@ -138,6 +137,7 @@ class Basket extends db{
         
     }
 }
+
 if($_REQUEST['title']){
     var_dump($_REQUEST);
     new Basket('save');

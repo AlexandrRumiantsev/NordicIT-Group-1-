@@ -1,6 +1,4 @@
 <?php
-
-
     class db {
     
       private $login = 'root';
