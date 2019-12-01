@@ -37,11 +37,11 @@ include_once($g_root.'/model/basket.php');
                 </div>
                 <nav class='col-sm-8'>
                     <a href='/category'> Все </a>
-                    <a> Женцинам </a>
-                    <a> Мужчинам </a>
-                    <a> Детям </a>
-                    <a> Новинки </a>
-                    <a> О нас </a>
+                    <a href='/category?type=woman'> Женцинам </a>
+                    <a href='/category?type=men'> Мужчинам </a>
+                    <a href='/category?type=children'> Детям </a>
+                    <a href='/category?type=new'> Новинки </a>
+                    <a href='/about'> О нас </a>
                 </nav>
                 <div class='col-sm-3'>
                     <span class='container__enter' id='enter'> 

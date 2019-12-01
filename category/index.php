@@ -5,7 +5,11 @@ include_once($g_root.'/model/db.php');
 include_once($g_root.'/model/goods.php');
 
 $goods = new goods;
-$list = $goods -> getList();
+if($_GET['type']){
+        $list = $goods -> getCategory($_GET['type']);
+}else $list = $goods -> getList();
+
+
 //var_dump($list->fetch_assoc());
 //$z = '"Тестова строка"'; 
 //echo "<script>alert(".$z.")</script>"

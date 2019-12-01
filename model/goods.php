@@ -16,6 +16,13 @@ class goods extends db{
         $result = $linkFromParent->query($query); 
         return $result;
     }
+    function getCategory($type){
+       
+        $linkFromParent = parent::extendConnect('localhost');
+        $query = 'select * from goods WHERE category="'.$type.'"';
+        $result = $linkFromParent->query($query); 
+        return $result;
+    }
     
 }
 if($_POST){

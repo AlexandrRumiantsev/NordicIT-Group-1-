@@ -1,5 +1,4 @@
 <?php
-
 $g_root = $_SERVER['DOCUMENT_ROOT'];
 include_once($g_root.'/header.php'); 
 ?>

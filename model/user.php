@@ -69,7 +69,6 @@ class User extends db{
         $this -> setLogin();
         $this -> setPassword();
         
-
         if($action == 'autorize'){
             $linkFromParent = parent::extendConnect('localhost');
             $this -> login($linkFromParent);
@@ -90,7 +89,7 @@ class User extends db{
 if($_POST["autorize"]){
     new User('autorize'); 
 }else{
-   new User(); 
+   new User('reg'); 
 }
 
 ?>

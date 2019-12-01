@@ -7,10 +7,13 @@ function returnMainPage(){
         window.location.href = location.origin + '/basket/';
 }
 
+function createElem(elem){
+  return document.createElement(elem);
+}
 /**
   * Установка Cookie на странице.
   * 
-  * @param {number} name - название куки
+  * @param {string} name - название куки
   * @param {number} value - значение куки
   * 
   */
@@ -125,3 +128,4 @@ function sendAJAX(to, data , type) {
 	http.send(data);
 
 }
+

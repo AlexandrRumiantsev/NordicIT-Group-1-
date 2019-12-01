@@ -19,6 +19,8 @@ class Basket extends db{
     private $price ;
     private $count ;
     private $size ;
+    private $login ;
+   
     //Методы
     function setGood(){
         echo $_REQUEST['title'];
@@ -54,8 +56,16 @@ class Basket extends db{
     function getImg(){
         return $this -> img;
     }
+    function setLogin(){
+        $this -> login = strip_tags($_REQUEST['login']);
+    }
+    function getLogin(){
+        return $this -> login;
+    }
     function count_goods($connect){
-        $sql = "SELECT COUNT(*) FROM basket";
+        $USER = json_decode($_COOKIE['json']);
+        $login = $USER -> login;
+        $sql = 'SELECT COUNT(*) FROM basket WHERE user="'.$login.'"';
         $result = mysqli_query($connect, $sql); 
         if($result){
             $s = $result->fetch_assoc();
@@ -68,11 +78,12 @@ class Basket extends db{
         $count = $this->getCount();
         $size = $this->getSize();
         $img = $this->getImg();
+        $login = $this->getLogin();
 
         $sql = "INSERT INTO `basket`(
-                                `good`,`price`,`count`,`size` , `img`
+                                `good`,   `price`,     `count`,   `size` , `img` , `user`
                             ) VALUES (  
-                                '$good',  '$price' ,  '$count' , '$size' , '$img'
+                                '$good',  '$price' ,  '$count' , '$size' , '$img' , '$login'
                             )";
         $result = mysqli_query($connect, $sql); 
         if($result){
@@ -80,7 +91,9 @@ class Basket extends db{
         }else echo $sql;           
     }
     function listDisplay($connect){
-        $query = "select * from basket";
+        $USER = json_decode($_COOKIE['json']);
+        $login = $USER -> login;
+        $query = 'select * from basket WHERE user="'.$login.'"';
         $result = $connect->query($query);
 
         while($row = mysqli_fetch_array($result))
@@ -111,6 +124,7 @@ class Basket extends db{
             $this -> setSize();
             $this -> setCount();
             $this -> setImg();
+            $this -> setLogin();
 
             $this -> save($linkFromParent);
         }
@@ -125,6 +139,7 @@ class Basket extends db{
     }
 }
 if($_REQUEST['title']){
+    var_dump($_REQUEST);
     new Basket('save');
 }
 if($_POST)  

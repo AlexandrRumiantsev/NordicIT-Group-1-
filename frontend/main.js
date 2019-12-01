@@ -9,19 +9,37 @@
             if(this.classList[0] == "active"){
               console.log( this.classList[0] );
               document.getElementById('ext').remove();
+              document.getElementById('adm').remove();
               this.classList = "";
             }else{
               this.classList.toggle("active");
-              var exit = document.createElement('p');
+
+              var exit = createElem('p');
               exit.innerText = 'выйти';
               exit.id = 'ext';
+
+              var adm = createElem('p');
+              adm.innerText = 'админка';
+              adm.id = 'adm';
+
               exit.onclick = function(e){
                 e.stopPropagation();
-                console.log('ext');
                 setCookie('json' , '') ;
                 reloadPage();
               }
-              this.parentElement.appendChild(exit);
+
+              adm.onclick = function(e){
+                e.stopPropagation();
+                console.log('adm');
+              }
+
+              var menu = createElem('div');
+              menu.id='menu';
+
+              menu.appendChild(exit);
+              menu.appendChild(adm);
+ 
+              this.parentElement.appendChild(menu);
               
             }
        });
@@ -30,8 +48,9 @@
   
   
         element.onclick = function(){
-          var id = JSON.parse(this.querySelector("div header").innerText)['id'];    
-          window.open(window.location.href += 'details?id=' + id);          
+          var id = JSON.parse(this.querySelector("div header").innerText)['id']; 
+          console.log(window.location.href);   
+          window.open(window.location.href = window.origin+'/category/details?id=' + id);          
         };
         
       
@@ -169,7 +188,7 @@
       
           overlay.appendChild(form);
           
-          let titleH1 = document.createElement('h1');
+          let titleH1 = createElem('h1');
           titleH1.innerText = 'Регистрация';
       
           let inputLogin = document.createElement('input');

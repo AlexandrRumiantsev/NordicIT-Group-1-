@@ -31,7 +31,12 @@ var url = location.origin + '/model/goods.php';
                var size = document.querySelector('.details-page__size__item.active').innerText;
                var price =  document.getElementsByClassName('details-page__price')[0].innerText;
                var img =  document.querySelectorAll('.details-page__container-img img')[0].src;
-               var params = "title="+title+"&count="+count+"&size="+size+"&price="+price+"&img="+img;
+               var user = getCookie('json');
+
+              
+               
+
+              
                
                
                
@@ -60,12 +65,21 @@ var url = location.origin + '/model/goods.php';
                lds.appendChild(ldsSubTwo);
                
        
-               document.getElementsByTagName('body')[0].appendChild(overlay);
+               
 
                console.log('Начало отправки');
                http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-               http.send(params);
+
+                if(user){
+                  document.getElementsByTagName('body')[0].appendChild(overlay);
+                 var userLogin = JSON.parse(user)['login'];
+                 var params = "title="+title+"&count="+count+"&size="+size+"&price="+price+"&img="+img+"&login="+ userLogin;
+                 http.send(params);
+               }else alert('Авторизайтесь для добавления товара в корзину');
+                  
+              
+                 
          }
        }
        

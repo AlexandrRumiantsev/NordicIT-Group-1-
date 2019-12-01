@@ -75,6 +75,16 @@ body #overlay #form-reg input[type="submit"] {
   cursor: pointer;
 }
 
+.container header .container__enter #adm {
+  top: 50px;
+  text-align: center;
+  color: white;
+  background: rgba(4, 1, 4, 0.8);
+  width: 100%;
+  position: absolute;
+  cursor: pointer;
+}
+
 .container header nav a {
   padding: 0px 10px;
 }
