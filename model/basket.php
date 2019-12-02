@@ -89,12 +89,14 @@ include_once 'db.php';
             echo 'Запрос успешно сработал';
         }else echo $sql;           
     }
+    
     function listDisplay($connect){
         $USER = json_decode($_COOKIE['json']);
         $login = $USER -> login;
         $query = 'select * from basket WHERE user="'.$login.'"';
         $result = $connect->query($query);
-
+        return $result;
+        
         while($row = mysqli_fetch_array($result))
         {
             echo "<div class='row'>";
@@ -109,6 +111,15 @@ include_once 'db.php';
                 echo "</div>";
             echo "</div>";  
         }
+    }
+
+    function getAllGoods(){
+        $connect = parent::extendConnect('localhost');
+        $USER = json_decode($_COOKIE['json']);
+        $login = $USER -> login;
+        $query = 'select * from basket WHERE user="'.$login.'"';
+        $result = $connect->query($query);
+        return $result;
     }
     //Конструктор
     function __construct($count) {

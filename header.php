@@ -4,9 +4,13 @@ session_start();
 error_reporting(1);
 $g_root = $_SERVER['DOCUMENT_ROOT'];
 include_once($g_root.'/model/basket.php');
-include_once($g_root.'/controller.php');
-?>
+include_once($g_root.'/functions.php');
 
+
+?>
+<script>
+<?php include_once($g_root.'/functions.js'); ?>
+</script>
 <html>
     <head>
     <meta charset="utf-8">
@@ -21,10 +25,7 @@ include_once($g_root.'/controller.php');
      <link rel="stylesheet" href="http://<?=$_SERVER["SERVER_NAME"]?>:<?=$_SERVER['SERVER_PORT']?>/style.css">
      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/webfonts/fa-solid-900.woff2">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-      <script> 
-        <?php include_once($g_root.'/functions.js'); ?>
-        <?php include_once($g_root.'/functions.php'); ?>
-      </script>
+     
     </head>
     <body>
         <div class='container'>
@@ -93,4 +94,4 @@ include_once($g_root.'/controller.php');
                     </span>
                 </div>    
             </header>
-            
+            <?php include_once($g_root.'/controller.php'); ?>

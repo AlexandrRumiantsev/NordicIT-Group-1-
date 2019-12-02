@@ -29,6 +29,9 @@ switch($_SERVER['REQUEST_URI']){
 
     case '/basket/':
         echo 'Cтраница -  Корзина';
+        $res = new Basket('list');
+        $array = $res->getAllGoods();
+        render("basket" , $array);
     break;
     
 }
