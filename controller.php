@@ -11,19 +11,7 @@ switch($_SERVER['REQUEST_URI']){
         echo 'Cтраница категорий';
     break;
 
-    case '/category/?type=woman':
-        echo 'Cтраница категорий -  Женская';
-    break;
-
-    case '/category/?type=children':
-        echo 'Cтраница категорий -   Для детей';
-    break;
-
-    case '/category/?type=new':
-        echo 'Cтраница категорий -  Новинки';
-    break;
-
-    case '/category/?type=men':
+    case '/category/?type='.$_GET['type']:
         echo 'Cтраница категорий-  Мужская';
     break;
 
@@ -32,6 +20,10 @@ switch($_SERVER['REQUEST_URI']){
         $res = new Basket('list');
         $array = $res->getAllGoods();
         render("basket" , $array);
+    break;
+
+    case '/category/details/?id='.$_GET['id']:
+        echo $_GET['id'];
     break;
     
 }
