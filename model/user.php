@@ -61,11 +61,29 @@ class User extends db{
 
         $result = mysqli_query($connect, $sql); 
         if($result){
-            echo 'Запрос успешно сработал';
+            //echo 'Запрос успешно сработал';
         }else echo $sql;           
     }
+    function session_start($user){
+        /*
+      Для сохранения авторизации на всех страницах
+      используем механизм сессии.
+      При каждом заходе на главную страницу, проверяется 
+      сохраненная в куке переменная и происходит старт сессии.
+      Для работы сессии на локальном сервере, необходимо поменять
+      значения в php.ini:
+         session.auto_start = 1
+         session.cookie_lifetime = 1
+      */
+        if(count($user) != 0){
+            session_start();
+            $_SESSION['isAuth'] = true;
+            $_SESSION['user_data'] = $user;
+            $_SESSION['login'] = $user['login'];
+       }else $_SESSION['login'] = '';
+    }
     //Конструктор
-    function __construct($action) {
+    function __construct($action = '') {
         $this -> setLogin();
         $this -> setPassword();
         
@@ -73,7 +91,7 @@ class User extends db{
             $linkFromParent = parent::extendConnect('localhost');
             $this -> login($linkFromParent);
         }
-        else{
+        else if($action == 'reg'){
             $this -> setMail();
             $linkFromParent = parent::extendConnect('localhost');
             
@@ -91,5 +109,6 @@ if($_POST["autorize"]){
 }else{
    new User('reg'); 
 }
+
 
 ?>

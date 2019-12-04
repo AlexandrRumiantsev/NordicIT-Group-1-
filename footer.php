@@ -1,32 +1,32 @@
-<?php 
-include_once($g_root.'/model/goods.php'); 
+<?php
+include_once __DIR__ . '/model/goods.php';
 $goods = new goods;
 ?>
-             <footer> 
-                <div class='footer-info'>  
+             <footer>
+                <div class='footer-info'>
                     <div class='col-sm-4'>
                         КОЛЛЕКЦИИ
                         <div>
                         <a target='_blank' href='/category/?type=woman'>
                             Женцинам
-                        </a> 
-                            (<?=$goods -> getCountCategory('woman')?>)
+                        </a>
+                            (<?=$goods->getCountCategory('woman')?>)
                         </div>
                         <div>
                         <a target='_blank' href='/category/?type=men'>
-                            Мужчинам 
+                            Мужчинам
                         </a>
-                            (<?=$goods -> getCountCategory('men')?>)</div>
+                            (<?=$goods->getCountCategory('men')?>)</div>
                         <div>
                         <a target='_blank' href='/category/?type=children'>
-                            Детям 
+                            Детям
                         </a>
-                        (<?=$goods -> getCountCategory('children')?>)</div>
+                        (<?=$goods->getCountCategory('children')?>)</div>
                         <div>
                         <a target='_blank' href='/category/?type=new'>
-                            Новинки 
+                            Новинки
                         </a>
-                        (<?=$goods -> getCountCategory('new')?>)</div>
+                        (<?=$goods->getCountCategory('new')?>)</div>
                     </div>
                     <div class='col-sm-4'>
                         МАГАЗИН
@@ -37,7 +37,7 @@ $goods = new goods;
                     </div>
                     <div class='col-sm-4'>
                         МЫ В СОЦИАЛЬНЫХ СЕТЯХ
-                        <div>Сайт разработан в 
+                        <div>Сайт разработан в
                             <a href='https://inordic.ru' target='_blank'>INordic.ru</a>
                         </div>
                         <div>2018 . Все права защищены</div>
@@ -49,4 +49,5 @@ $goods = new goods;
                     </div>
                 </div>
             </footer>
-            <script src='http://<?=$_SERVER["SERVER_NAME"]?>:<?=$_SERVER['SERVER_PORT']?>/controller.js'></script>
+           
+            <script src="http://<?=$_SERVER['HTTP_HOST']?>/controller.js"></script>

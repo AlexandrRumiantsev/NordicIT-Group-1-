@@ -8,12 +8,14 @@ class goods extends db{
         $linkFromParent = parent::extendConnect('localhost');
         $query = "select * from goods where id=".$id;
         $result = $linkFromParent->query($query); 
+        
         return $result;
     }
     function getList(){
         $linkFromParent = parent::extendConnect('localhost');
         $query = "select * from goods";
         $result = $linkFromParent->query($query); 
+       
         return $result;
     }
     function getCategory($type){
@@ -34,6 +36,7 @@ class goods extends db{
     }
     
 }
+/*
 if($_POST){
     $item  = new goods;
      $i = $item -> getItem($_POST['id']);
@@ -41,4 +44,5 @@ if($_POST){
         echo json_encode($row);
     }
 }
+*/
      

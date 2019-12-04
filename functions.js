@@ -57,13 +57,11 @@ function deleteAllCookies() {
 //Функция для загрузки скриптов в основной файл JS
 function loadScript(name){
   let script = document.createElement('script');
-
+  script.async = true;
   script.src = window.location.origin + "/frontend/" + name + ".js";
   document.body.appendChild(script);
 
-  script.onload = function() {
-    console.log(name + 'скрипт загружен');
-  };
+  return script;
 }
 
 function IsJsonString(str) {           
@@ -81,6 +79,7 @@ function ValidateJsonString(str) {
 
 function reloadPage() {
   location.href=location.href;
+  location.href=location.href;
 }
 
 
@@ -92,7 +91,51 @@ function reloadPage() {
  * var params = "title=" + title + "&count=" + count;
  * @param {*} type - тип запроса (POST, GET) 
  */
-function sendAJAX(to, data , type) {
+var successCallback = function(result) { 
+    return result;
+}
+
+var errorCallback = function() { console.log(false); }
+
+function sendAJAX( data , type , createDetailForm=0) {
+  var http = new XMLHttpRequest();
+  http.open(type, location.origin + '/controller.php' , true);
+	http.onreadystatechange = function () {
+		if (http.readyState == 4 && http.status == 200) {
+		var result = http.response;
+		
+				document.getElementById('overlay').remove();
+				
+				if(successCallback(result) && createDetailForm==1){
+				    console.log('Отрисовка формы');
+				};
+
+		}else errorCallback();
+  }
+  
+  var overlay = document.createElement('div');
+	overlay.id = 'overlay';
+
+	var lds = document.createElement('div');
+	lds.className = 'lds-ripple';
+
+	var ldsSubOne = document.createElement('div');
+	var ldsSubTwo = document.createElement('div');
+
+	overlay.appendChild(lds);
+	lds.appendChild(ldsSubOne);
+  lds.appendChild(ldsSubTwo);
+  
+  document.getElementsByTagName('body')[0].appendChild(overlay);
+
+  http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  console.log(data);
+  http.send(data);
+}
+
+/*
+function sendAJAX(to, data , type , nameParam) {
 
   var http = new XMLHttpRequest();
 
@@ -123,10 +166,42 @@ function sendAJAX(to, data , type) {
 
 	document.getElementsByTagName('body')[0].appendChild(overlay);
 
-	console.log('Начало отправки');
+	//console.log('Начало отправки');
 	http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 	http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	http.send(data);
+  //console.log(data);
+  var params = nameParam + '=' + data;
+  console.log(nameParam);
+
+
+  http.send(params);
 
 }
+*/
 
+        /* 
+        Пример  анимированного перехода на страницу корзины
+        (убрал тк вызывает глюк с авторизацией)
+        
+document.getElementById('SH').addEventListener('click', function(){
+    console.log(location.origin);
+    
+    //анимации vanila js
+    //https://developer.mozilla.org/en-US/docs/Web/API/Element/animate
+      
+    document.getElementsByTagName("body")[0].animate([ 
+        { // Начало анимации
+          opacity: 1,
+        }, 
+        { // Конец анимации
+          opacity: 0,
+        }
+      ], 2000);
+      
+      function returnMainPage(){
+        window.location.href = location.origin;
+      }
+      
+      setTimeout(returnMainPage, 2000);
+})
+*/

@@ -1,26 +1,26 @@
 <?php
-$g_root = $_SERVER['DOCUMENT_ROOT'];
-include_once($g_root.'/header.php'); 
+
+include_once __DIR__ . '/header.php';
 ?>
-            <main> 
-                <div class='wraper'> 
+            <main>
+                <div class='wraper'>
 
                     <h1>НОВЫЕ ПООСТУПЛЕНИЯ ВЕСНЫ</h1>
                     <div class='wraper__slogan'>Мы подготовили для Вас лучшие новинки сезона</div>
-                    <div class='wraper__look-new'> 
-                            <div class='wraper__look-new__item'> 
+                    <div class='wraper__look-new'>
+                            <div class='wraper__look-new__item look-new__item'>
                                 Посмотреть новинки
-                            </div>  
+                            </div>
                     </div>
 
                     <div class='wraper__gooods-block'>
 
                         <div class='wraper__gooods-block__block col-sm-3'>
                             <div class='wraper__gooods-block__block__2block jins'>
-                                   
+
                             </div>
                             <div class='wraper__gooods-block__block__1block belt'>
-                                   
+
                             </div>
                         </div>
 
@@ -28,14 +28,14 @@ include_once($g_root.'/header.php');
                             <div class='wraper__gooods-block__block__1block'>
                                 <div class='block__quests-container'>
                                     <img class='quests' src='img/icons/attention-sign-outline.png'>
-                                </div>   
-                               <div class='block__text'>каждый сезон мы подготавливаем для Вас исключительно лучшую модну одежду. 
+                                </div>
+                               <div class='block__text'>каждый сезон мы подготавливаем для Вас исключительно лучшую модну одежду.
                                Следит за нашими новинками</div>
                             </div><div class='wraper__gooods-block__block__1block jins'>
                                     <div class='block__content'>
                                         <h3>ДЖИНСЫ</h3>
                                         <div>от 3200.</div>
-                                    </div>    
+                                    </div>
                             </div>
                             <div class='wraper__gooods-block__block__1block dark'>
                             <div class='block__content'>
@@ -47,12 +47,12 @@ include_once($g_root.'/header.php');
 
                         <div class='wraper__gooods-block__block col-sm-3'>
                         <div class='wraper__gooods-block__block__1block boots'>
-                           
+
                             </div>
                             <div class='wraper__gooods-block__block__1block'>
                                 <div class='block__quests-container'>
                                     <img class='quests' src='img/icons/attention-sign-outline.png'>
-                                </div>   
+                                </div>
                                <div class='block__text'>Самые низкие цены в Москве.
                                     Нашли дешевле? Вернем разницу.</div>
                             </div>
@@ -69,30 +69,30 @@ include_once($g_root.'/header.php');
                                 </div>
                             </div>
                             <div class='wraper__gooods-block__block__2block clothes'>
-                           
+
                             </div>
                         </div>
 
                     </div>
-                    
+
                     <div class='wraper__bottom-info'>
                         <div class='bottom-info__title'>БУДЬ ВСЕГДА В КУРСЕ ВЫГОДНЫХ ПРЕДЛОЖЕНИЙ</div>
                         <div class='bottom-info__subtext'>подписывайся и следи за новинками и выгодными предложениями.</div>
 
-                        <form>
+                        <form id='mail_send'>
                             <input type='text' placeholder='email'/>
                             <input type='submit' value='Записаться'/>
                         </form>
                         <span id='system-message'></span>
                     </div>
-                   
-                </div> 
+
+                </div>
             </main>
-            
-            <?php 
-            include_once($g_root.'/footer.php'); 
-            ?>
+
+            <?php
+include_once __DIR__ . '/footer.php';
+?>
 
         </div>
     </body>
-</html>    
+</html>

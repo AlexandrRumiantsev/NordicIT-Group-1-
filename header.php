@@ -2,15 +2,15 @@
 <?php 
 session_start();
 error_reporting(1);
-$g_root = $_SERVER['DOCUMENT_ROOT'];
-include_once($g_root.'/model/basket.php');
-include_once($g_root.'/functions.php');
+
+include_once(__DIR__.'/model/user.php');
+include_once(__DIR__.'/model/basket.php');
+include_once(__DIR__.'/model/goods.php');
+include_once(__DIR__.'/functions.php');
 
 
 ?>
-<script>
-<?php include_once($g_root.'/functions.js'); ?>
-</script>
+<script src="http://<?=$_SERVER['HTTP_HOST']?>/functions.js"></script>
 <html>
     <head>
     <meta charset="utf-8">
@@ -29,28 +29,7 @@ include_once($g_root.'/functions.php');
     </head>
     <body>
         <div class='container'>
-            <?php
-                $USER = (array) json_decode($_COOKIE['json']);
-                if(count($USER) != 0){
-                     /*
-                     Для сохранения авторизации на всех страницах
-                     используем механизм сессии.
-                     При каждом заходе на главную страницу, проверяется 
-                     сохраненная в куке переменная и происходит старт сессии.
-                     Для работы сессии на локальном сервере, необходимо поменять
-                     значения в php.ini:
-        
-                        session.auto_start = 1
-                        session.cookie_lifetime = 1
-
-                     */
-                     session_start();
-                     $_SESSION['isAuth'] = true;
-                     $_SESSION['user_data'] = $USER;
-                     $_SESSION['login'] = $USER['login'];
-                }else $_SESSION['login'] = '';
-             ?>
-            <header> 
+            <header id='header-lg'> 
                 <div class='col-sm-1'> 
                     <span id='SH' class='container__SH'>
                         SH
@@ -94,4 +73,4 @@ include_once($g_root.'/functions.php');
                     </span>
                 </div>    
             </header>
-            <?php include_once($g_root.'/controller.php'); ?>
+            <?php include_once(__DIR__.'/controller.php'); ?>

@@ -96,7 +96,7 @@ include_once 'db.php';
         $query = 'select * from basket WHERE user="'.$login.'"';
         $result = $connect->query($query);
         return $result;
-        
+        /*
         while($row = mysqli_fetch_array($result))
         {
             echo "<div class='row'>";
@@ -111,18 +111,34 @@ include_once 'db.php';
                 echo "</div>";
             echo "</div>";  
         }
+        */
     }
 
     function getAllGoods(){
         $connect = parent::extendConnect('localhost');
         $USER = json_decode($_COOKIE['json']);
         $login = $USER -> login;
-        $query = 'select * from basket WHERE user="'.$login.'"';
+        //$query = 'select * from basket WHERE user="'.strip_tags($login).'"';
+        $query = 'select * from basket left join goods on basket.good = goods.title  WHERE basket.user="'.strip_tags($login).'"';
         $result = $connect->query($query);
         return $result;
     }
+    function delItemBasket($item){
+        $connect = parent::extendConnect('localhost');
+        $USER = json_decode($_COOKIE['json']);
+        $login = $USER -> login;
+        echo strip_tags($item);
+        $query = 'DELETE FROM `basket` WHERE good="'.strip_tags($item).'"';
+
+        $result = $connect->query($query);
+        if($result){
+     
+        }echo $query;
+        return $result;
+    }
+    
     //Конструктор
-    function __construct($count) {
+    function __construct($count , $good='') {
         $linkFromParent = parent::extendConnect('localhost');
         if($count == 'count'){
             echo $this -> count_goods($linkFromParent);
@@ -144,6 +160,10 @@ include_once 'db.php';
         }
         if($count == 'testscript'){
             echo "<script>alert('код js в php')</script>";
+        }
+        if($count == 'del'){
+            //echo "удалить ".$good;
+            $this -> delItemBasket($good);
         }
         
     }
