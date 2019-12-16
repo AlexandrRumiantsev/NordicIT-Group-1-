@@ -1,3 +1,10 @@
+var User = {};
+User.registration = function(){
+    console.log('Регистрация');
+}
+User.authorization = function(){
+     console.log('Авторизация');
+}
 console.log('главная страница');
 
 if(document.getElementById('title_basket') != null){
@@ -86,23 +93,25 @@ document.getElementById('SH').addEventListener('click', function() {
     setTimeout(returnMainPage, 2000);
 })
 
+//var formData = new FormData(document.getElementById("form-reg"));
+ 
 document.getElementById('enter').addEventListener('click', function() {
-    let overlay = document.createElement('div');
+    var overlay = document.createElement('div');
     overlay.id = 'overlay';
 
-    let form = document.createElement('form');
+    var form = document.createElement('form');
     form.id = 'form-reg';
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (this.querySelector('h1').innerText == 'Авторизация') {
             console.log('Авторизация');
+            
+            /*
             var http = new XMLHttpRequest();
             var url = window.location.origin + '/model/user.php';
             var params = 'orem=ipsum&name=binny';
             http.open('POST', url, true);
-
-            var formData = new FormData(document.getElementById("form-reg"));
 
             //http.setRequestHeader('Content-type', 'multipart/form-data');
             function IsJsonString(str) {
@@ -116,23 +125,27 @@ document.getElementById('enter').addEventListener('click', function() {
             }
             http.onreadystatechange = function() {
                 if (http.readyState == 4 && http.status == 200) {
+                    console.log(http.responseText);
                     console.log(IsJsonString(http.responseText));
                     document.getElementById('overlay').remove();
                     console.log('reloadPage');
-                    reloadPage();
+                    //reloadPage();
                 }
             }
 
             console.log('Начало отправки');
-            http.send(formData);
+            http.send(this);
+            */
+             sendAJAX( "action=loginUser" , 'POST' , this ) ;
         } else {
             /*
             AJAX VANILA JS
             https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started
             */
+            
+            /*
             var http = new XMLHttpRequest();
             var url = window.location.origin + '/model/user.php';
-            var params = 'orem=ipsum&name=binny';
             http.open('POST', url, true);
 
             var formData = new FormData(document.getElementById("form-reg"));
@@ -148,6 +161,8 @@ document.getElementById('enter').addEventListener('click', function() {
 
             console.log('Начало отправки');
             http.send(formData);
+            */
+            sendAJAX( "action=saveUser" , 'POST' , this ) ;
         }
         return false;
     });
@@ -196,7 +211,10 @@ document.getElementById('enter').addEventListener('click', function() {
         form_autorize.appendChild(inputPassword);
         form_autorize.appendChild(hidden);
         form_autorize.appendChild(inputSbm);
-
+        form_autorize.onsubmit = function(){
+            console.log('АВТОРИЗААЦИЯ');
+            return false;
+        }
     }
 
     form.appendChild(titleH1);

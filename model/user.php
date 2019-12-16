@@ -34,11 +34,14 @@ class User extends db{
         return $this -> mail;
     }
     function login($connect){
-        $log = $this->getLogin();
-        $pass = $this->getPassword();
-
-        $sql = "SELECT * FROM `users` WHERE login = '$log' AND password = '$pass'";
+        var_dump($_REQUEST);
+        $log = $_REQUEST['password'];
+        $pass = $_REQUEST['login'];
+        var_dump('XXX1111');
+        $sql = "SELECT * FROM `users` WHERE login = '$log' AND password = '{$pass}'";
+         var_dump( $sql );
         $result = mysqli_query($connect, $sql); 
+         var_dump($result);
         if($result){
             while ($row = $result->fetch_assoc()) {
                $res = json_encode($row);
@@ -53,16 +56,16 @@ class User extends db{
         $mail = $this->getMail();
 
         $sql = "INSERT INTO `users`  (
-                    `login`, `password`,`name`, `mail` 
+                    `login`, `password`, `name` , `mail` , `role` 
                 ) 
                 VALUES ( 
-                    '$log', '$pass', 'myName' , '$mail'
+                    '$log', '$pass', '' , '$mail' , 'user'
                 )";
 
         $result = mysqli_query($connect, $sql); 
-        if($result){
-            //echo 'Запрос успешно сработал';
-        }else echo $sql;           
+        if($result)
+            echo 'Запрос успешно сработал';
+        else echo $sql;           
     }
     function session_start($user){
         /*
@@ -99,15 +102,6 @@ class User extends db{
             
         }
     }
-}
-
-
-
-
-if($_POST["autorize"]){
-    new User('autorize'); 
-}else{
-   new User('reg'); 
 }
 
 

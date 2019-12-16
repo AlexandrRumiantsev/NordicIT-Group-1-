@@ -6,7 +6,10 @@
 */
 
 (() => {
-      loadScript('main');
+      var scriptMain = loadScript('main');
+      scriptMain.onload = function () {
+          User.registration();
+      }
       switch (window.location.pathname) {
 
             case '/':

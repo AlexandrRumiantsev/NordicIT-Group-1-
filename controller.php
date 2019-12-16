@@ -9,6 +9,7 @@ if($_POST['action']){
     
     include_once(__DIR__.'/model/basket.php');
     include_once(__DIR__.'/model/goods.php');
+    include_once(__DIR__.'/model/user.php');
   
     switch ($_POST['action']){
         case 'del':
@@ -29,14 +30,17 @@ if($_POST['action']){
             $goods = new goods();
             $item = $goods -> getItem($_POST['id']);
              while ($row = $item->fetch_assoc()) {
-                 //var_dump($row);
-                 //echo $row["title"];
                  $JSON = json_encode($row);
-            
                  echo "<script>var globalObject=".print_r($JSON)."</script>";
-                 //render("details" , $item );
              }
-        break;    
+        break;
+        case 'saveUser':
+            new User('reg'); 
+        break;
+        case 'loginUser':
+            var_dump($_REQUEST);
+            new User('autorize'); 
+        break; 
     }
 }else{
 

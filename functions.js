@@ -95,22 +95,25 @@ var successCallback = function(result) {
     return result;
 }
 
-var errorCallback = function() { console.log(false); }
+var errorCallback = function(e) { console.log(e); }
 
-function sendAJAX( data , type , createDetailForm=0) {
+function sendAJAX( action , type , form=0 ) {
   var http = new XMLHttpRequest();
   http.open(type, location.origin + '/controller.php' , true);
 	http.onreadystatechange = function () {
-		if (http.readyState == 4 && http.status == 200) {
-		var result = http.response;
-		
-				document.getElementById('overlay').remove();
-				
+		//if (http.readyState == 4 && http.status == 200) {
+		        var result = http.response;
+		        if(result){
+		            console.log(result)
+		            document.getElementById('overlay').remove();
+		        };
+			//	document.getElementById('overlay').remove();
+				/*
 				if(successCallback(result) && createDetailForm==1){
 				    console.log('Отрисовка формы');
 				};
-
-		}else errorCallback();
+				*/
+	//	}else errorCallback();
   }
   
   var overlay = document.createElement('div');
@@ -130,8 +133,17 @@ function sendAJAX( data , type , createDetailForm=0) {
 
   http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  console.log(data);
-  http.send(data);
+  console.log(action);
+  console.log(form);
+  if(action=='saveUser'){
+          var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value + `&mail=` + form.getElementsByTagName('input').mail.value;
+  }else if(action=='loginUser'){
+      console.log('dddedwe');
+          console.log(form);
+          var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value;
+  }
+
+  http.send(action);
 }
 
 /*

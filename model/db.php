@@ -1,9 +1,9 @@
 <?php
     class db {
     
-      private $login = 'root';
-      private $pass = 'root'; 
-      private $name_base = 'magazine_lesson';
+      private $login = 'alexweber';
+      private $pass = '6Exniskay20'; 
+      private $name_base = 'magazine_lession';
       
       function connect($host) {
         $link = new mysqli( $host, $this->login, $this->pass, $this->name_base );
