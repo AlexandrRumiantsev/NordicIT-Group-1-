@@ -136,6 +136,7 @@ document.getElementById('enter').addEventListener('click', function() {
             console.log('Начало отправки');
             http.send(this);
             */
+            
              sendAJAX( "action=loginUser" , 'POST' , this ) ;
         } else {
             /*
@@ -197,6 +198,9 @@ document.getElementById('enter').addEventListener('click', function() {
     inputAutorize.innerText = 'Авторизация';
 
     inputAutorize.onclick = function() {
+        
+        form.classList.add("disable");
+        
         var title = document.createElement('h1');
         title.id = 'title';
         title.innerText = 'Авторизация';
@@ -204,17 +208,21 @@ document.getElementById('enter').addEventListener('click', function() {
         hidden.type = 'hidden';
         hidden.name = 'autorize';
         hidden.value = 'true';
-        var form_autorize = document.getElementById('form-reg');
+        var form_autorize = document.createElement('form');
+        form_autorize.id = 'form-autorize';
         form_autorize.innerHTML = '';
         form_autorize.appendChild(title);
         form_autorize.appendChild(inputLogin);
         form_autorize.appendChild(inputPassword);
         form_autorize.appendChild(hidden);
         form_autorize.appendChild(inputSbm);
+        document.getElementById('overlay').appendChild(form_autorize);
         form_autorize.onsubmit = function(){
             console.log('АВТОРИЗААЦИЯ');
+            sendAJAX( "loginUser" , 'POST' , this ) ;
             return false;
         }
+        form_autorize
     }
 
     form.appendChild(titleH1);

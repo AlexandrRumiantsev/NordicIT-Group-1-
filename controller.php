@@ -6,10 +6,11 @@
  * команды с индексом action
 */
 if($_POST['action']){
-    
+    /*
     include_once(__DIR__.'/model/basket.php');
     include_once(__DIR__.'/model/goods.php');
     include_once(__DIR__.'/model/user.php');
+    */
   
     switch ($_POST['action']){
         case 'del':

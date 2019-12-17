@@ -34,20 +34,19 @@ class User extends db{
         return $this -> mail;
     }
     function login($connect){
-        var_dump($_REQUEST);
         $log = $_REQUEST['password'];
         $pass = $_REQUEST['login'];
-        var_dump('XXX1111');
         $sql = "SELECT * FROM `users` WHERE login = '$log' AND password = '{$pass}'";
-         var_dump( $sql );
+       
         $result = mysqli_query($connect, $sql); 
-         var_dump($result);
+
         if($result){
+            echo 'Запрос успешен!';
             while ($row = $result->fetch_assoc()) {
                $res = json_encode($row);
+               setcookie('user', $res);
             }
-            setcookie('user', $res);
-            echo $res;
+            
         }else echo $sql; 
     }
     function save($connect){
@@ -63,9 +62,10 @@ class User extends db{
                 )";
 
         $result = mysqli_query($connect, $sql); 
-        if($result)
-            echo 'Запрос успешно сработал';
-        else echo $sql;           
+        if($result){
+             echo 'Запрос успешно сработал';
+             var_dump($result);
+        } else echo $sql;           
     }
     function session_start($user){
         /*

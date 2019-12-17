@@ -9,6 +9,7 @@ include_once(__DIR__.'/model/goods.php');
 include_once(__DIR__.'/functions.php');
 
 
+
 ?>
 <script src="http://<?=$_SERVER['HTTP_HOST']?>/functions.js"></script>
 <html>

@@ -1,5 +1,13 @@
 //https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage 
+ function IsJsonString(str) {
+                try {
+                    setCookie('json', str);
+                } catch (e) {
+                    return false;
+                }
 
+                return 'true';
+}
 /**
   * Установка главной страницы сайта на позицию текущей.
  */
@@ -98,25 +106,19 @@ var successCallback = function(result) {
 var errorCallback = function(e) { console.log(e); }
 
 function sendAJAX( action , type , form=0 ) {
+  var result = '';
   var http = new XMLHttpRequest();
   http.open(type, location.origin + '/controller.php' , true);
 	http.onreadystatechange = function () {
 		//if (http.readyState == 4 && http.status == 200) {
-		        var result = http.response;
+		        result = http.response;
 		        if(result){
 		            console.log(result)
 		            document.getElementById('overlay').remove();
 		        };
-			//	document.getElementById('overlay').remove();
-				/*
-				if(successCallback(result) && createDetailForm==1){
-				    console.log('Отрисовка формы');
-				};
-				*/
-	//	}else errorCallback();
-  }
+    }
   
-  var overlay = document.createElement('div');
+    var overlay = document.createElement('div');
 	overlay.id = 'overlay';
 
 	var lds = document.createElement('div');
@@ -127,7 +129,7 @@ function sendAJAX( action , type , form=0 ) {
 
 	overlay.appendChild(lds);
 	lds.appendChild(ldsSubOne);
-  lds.appendChild(ldsSubTwo);
+   lds.appendChild(ldsSubTwo);
   
   document.getElementsByTagName('body')[0].appendChild(overlay);
 
@@ -138,7 +140,11 @@ function sendAJAX( action , type , form=0 ) {
   if(action=='saveUser'){
           var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value + `&mail=` + form.getElementsByTagName('input').mail.value;
   }else if(action=='loginUser'){
-      console.log('dddedwe');
+          console.log(result);
+            console.log(IsJsonString(result));
+            document.getElementById('overlay').remove();
+            console.log('reloadPage');
+            reloadPage();
           console.log(form);
           var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value;
   }
