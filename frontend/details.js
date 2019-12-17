@@ -1,30 +1,31 @@
-/*
-var params = window.location.search.substr(1);
-console.log(params);
-var url = location.origin;
-var http = new XMLHttpRequest();
-http.open('POST', url, true);
-
-http.onreadystatechange = function() {
-    if (http.readyState == 4 && http.status == 200) {
-        var arr = JSON.parse(http.response);
-        document.querySelector(".details-page__title h1")
-            .innerText = arr['title'];
-        document.querySelector(".details-page__container-img img")
-            .src = window.location.origin + '/img/catalog/' + arr['img'];
-        document.querySelector(".container .details-page__price i")
-            .innerText = arr['price'];
-        document.querySelector(".container .details-page__discroption")
-            .innerText = arr['discr'];
-        document.querySelector(".container .container .details-page__artikul i")
-            .innerText = "Артикул: " + arr['article'];
-    }
+var detailGood = {
+    'good_title': document.getElementsByTagName('h1')[0].innerText , 
+    'good_size': "" , 
+    'price': document.getElementsByClassName('details-page__price')[0].innerText ,
+    'img': document.querySelectorAll('.details-page__container-img img')[0].src ,
+    'count': document.getElementById('add-container__number').innerText,
+    'article': document.querySelector('.details-page__artikul i').innerText,
+    'discription': document.getElementsByClassName('details-page__discroption')[0].innerText,
+    'add_basket': function(){
+        console.log('add basket');
+    },
+    'set_size':function(){
+         console.log('set_size');
+    },
+    'plus': function(){
+         console.log('plus basket');
+    },
+    'minus': function(){
+         console.log('minus basket');
+    },
+    'onclickTitle': function(){
+        document.getElementsByTagName('h1')[0].onclick = function(){
+            console.log('onclickTitle');
+        }
+    }()    
 }
-http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-http.send(params);
-*/
 console.log('Детализация товара');
+console.log(detailGood);
 
 var btn = document.getElementById('add_basket');
 if (btn) {
@@ -60,11 +61,11 @@ if (btn) {
         http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
+        var user = JSON.parse(getCookie('user')).login
 
+        if (JSON.parse(getCookie('user')).login) {
 
-        if (user) {
-
-            var userLogin = JSON.parse(user)['login'];
+            var userLogin = JSON.parse(getCookie('user')).login;
             var params = "title=" + title + "&count=" + count + "&size=" + size + "&price=" + price + "&img=" + img + "&login=" + userLogin;
             if (size) {
                 var overlay = document.createElement('div');

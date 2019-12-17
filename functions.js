@@ -198,8 +198,13 @@ function sendAJAX(action = '', type, form = 0) {
     }else if(action == 'sessionStart'){
         console.log(getCookie('user'))
         console.log('sessionStart SEND');
-        if(IsJsonString(getCookie('user'))=='true')
-            var action = `action=` + action + `&login=` + JSON.parse(getCookie('user')).login + `&password=` + JSON.parse(getCookie('user')).password;
+        if(IsJsonString(getCookie('user'))=='true'){
+             var action = `action=` + action + `&login=` + JSON.parse(getCookie('user')).login + `&password=` + JSON.parse(getCookie('user')).password;
+        }
+        document.getElementById('overlay').remove();
+        var log = document.querySelector('#enter span');
+        log.innerText = JSON.parse(getCookie('user')).login;
+        log.id = 'log';
     }
   
     http.send(action);
