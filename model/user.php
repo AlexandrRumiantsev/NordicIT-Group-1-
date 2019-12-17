@@ -37,13 +37,14 @@ class User extends db{
         $log = $_REQUEST['password'];
         $pass = $_REQUEST['login'];
         $sql = "SELECT * FROM `users` WHERE login = '$log' AND password = '{$pass}'";
-       
+        echo $sql;
         $result = mysqli_query($connect, $sql); 
 
         if($result){
             echo 'Запрос успешен!';
             while ($row = $result->fetch_assoc()) {
                $res = json_encode($row);
+               setcookie('user', '');
                setcookie('user', $res);
             }
             
@@ -67,7 +68,7 @@ class User extends db{
              var_dump($result);
         } else echo $sql;           
     }
-    function session_start($user){
+    function session_start(){
         /*
       Для сохранения авторизации на всех страницах
       используем механизм сессии.
@@ -78,18 +79,22 @@ class User extends db{
          session.auto_start = 1
          session.cookie_lifetime = 1
       */
-        if(count($user) != 0){
+   
+        $dataUserCookie = json_decode($_COOKIE["user"] , true);
+        
+        if( $dataUserCookie["login"] != '' ){
             session_start();
+            $_COOKIE["login"] = $dataUserCookie["login"];
             $_SESSION['isAuth'] = true;
-            $_SESSION['user_data'] = $user;
-            $_SESSION['login'] = $user['login'];
+            $_SESSION['user_data'] =  $dataUserCookie;
+            $_SESSION['login'] = $dataUserCookie["login"];
        }else $_SESSION['login'] = '';
     }
     //Конструктор
     function __construct($action = '') {
         $this -> setLogin();
         $this -> setPassword();
-        
+
         if($action == 'autorize'){
             $linkFromParent = parent::extendConnect('localhost');
             $this -> login($linkFromParent);

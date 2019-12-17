@@ -154,7 +154,7 @@ function reloadPage() {
  * @param {*} form - форма для отпраки на сервер (по умолчанию пустая)
  */
 
-function sendAJAX(action, type, form = 0) {
+function sendAJAX(action = '', type, form = 0) {
     var result = '';
     var http = new XMLHttpRequest();
     http.open(type, location.origin + '/controller.php', true);
@@ -195,7 +195,12 @@ function sendAJAX(action, type, form = 0) {
         reloadPage();
         console.log(form);
         var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value;
+    }else if(action == 'sessionStart'){
+        console.log(getCookie('user'))
+        console.log('sessionStart SEND');
+        if(IsJsonString(getCookie('user'))=='true')
+            var action = `action=` + action + `&login=` + JSON.parse(getCookie('user')).login + `&password=` + JSON.parse(getCookie('user')).password;
     }
-
+  
     http.send(action);
 }

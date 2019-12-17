@@ -6,13 +6,19 @@
  * команды с индексом action
 */
 if($_POST['action']){
-    /*
+    
     include_once(__DIR__.'/model/basket.php');
     include_once(__DIR__.'/model/goods.php');
     include_once(__DIR__.'/model/user.php');
-    */
+    $USER = new user();
   
     switch ($_POST['action']){
+        case 'sessionStart':
+             session_start();
+            //$obj = json_decode($_COOKIE["user"] , true);
+            if($USER -> sessionStart());
+                var_dump($_SESSION);
+        break;     
         case 'del':
             $res = new Basket($_POST['action'] , $_REQUEST['good']);
         break;
@@ -39,7 +45,6 @@ if($_POST['action']){
             new User('reg'); 
         break;
         case 'loginUser':
-            var_dump($_REQUEST);
             new User('autorize'); 
         break; 
     }

@@ -8,7 +8,7 @@
 (() => {
       var scriptMain = loadScript('main');
       scriptMain.onload = function () {
-          User.registration();
+          User.sessionStart();
       }
       switch (window.location.pathname) {
 

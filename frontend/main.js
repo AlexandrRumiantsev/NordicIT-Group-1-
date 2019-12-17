@@ -1,10 +1,21 @@
-var User = {};
-User.registration = function(){
-    console.log('Регистрация');
+var User = {
+    'registration' : function(){
+        console.log('Регистрация');
+    },
+    'authorization' : function(){
+         console.log('Авторизация');
+    },
+    'sessionStart' : function(){
+         console.log('sessionStart');
+         sendAJAX( "sessionStart" , 'POST') ;
+    },
+    'logout' : function(){
+        console.log('logout');
+    }
 }
-User.authorization = function(){
-     console.log('Авторизация');
-}
+
+
+
 console.log('главная страница');
 
 if(document.getElementById('title_basket') != null){
@@ -23,9 +34,9 @@ if(document.getElementById('title_basket') != null){
     })
   }
 
-if (window.getCookiesAll()['json']) {
-    console.log('User cookie');
-}
+
+
+
 if (document.getElementById('log'))
     document.getElementById('log').addEventListener('click', function(e) {
         e.stopPropagation();
@@ -47,7 +58,7 @@ if (document.getElementById('log'))
 
             exit.onclick = function(e) {
                 e.stopPropagation();
-                setCookie('json', '');
+                setCookie('user', '');
                 reloadPage();
             }
 
@@ -106,63 +117,8 @@ document.getElementById('enter').addEventListener('click', function() {
         e.preventDefault();
         if (this.querySelector('h1').innerText == 'Авторизация') {
             console.log('Авторизация');
-            
-            /*
-            var http = new XMLHttpRequest();
-            var url = window.location.origin + '/model/user.php';
-            var params = 'orem=ipsum&name=binny';
-            http.open('POST', url, true);
-
-            //http.setRequestHeader('Content-type', 'multipart/form-data');
-            function IsJsonString(str) {
-                try {
-                    setCookie('json', str);
-                } catch (e) {
-                    return false;
-                }
-
-                return 'true';
-            }
-            http.onreadystatechange = function() {
-                if (http.readyState == 4 && http.status == 200) {
-                    console.log(http.responseText);
-                    console.log(IsJsonString(http.responseText));
-                    document.getElementById('overlay').remove();
-                    console.log('reloadPage');
-                    //reloadPage();
-                }
-            }
-
-            console.log('Начало отправки');
-            http.send(this);
-            */
-            
-             sendAJAX( "action=loginUser" , 'POST' , this ) ;
+            sendAJAX( "action=loginUser" , 'POST' , this ) ;
         } else {
-            /*
-            AJAX VANILA JS
-            https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started
-            */
-            
-            /*
-            var http = new XMLHttpRequest();
-            var url = window.location.origin + '/model/user.php';
-            http.open('POST', url, true);
-
-            var formData = new FormData(document.getElementById("form-reg"));
-
-            http.onreadystatechange = function() {
-                if (http.readyState == 4 && http.status == 200) {
-                    console.log(http.responseText);
-                    console.log(http);
-                    console.log('Конец отправки');
-                    document.getElementById('overlay').remove();
-                }
-            }
-
-            console.log('Начало отправки');
-            http.send(formData);
-            */
             sendAJAX( "action=saveUser" , 'POST' , this ) ;
         }
         return false;
