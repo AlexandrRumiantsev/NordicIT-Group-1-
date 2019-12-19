@@ -15,7 +15,7 @@
       <?php while ($row = mysqli_fetch_array($arResult)): ?>
             <div> 
               <div class='row'>
-                <div class='col-sm-2'><img class='row__img' src='http://<?=$_SERVER["SERVER_NAME"]?>:<?=$_SERVER['SERVER_PORT']?>/img/catalog/<?=$row['img']?>'></div>
+                <div class='col-sm-2'><img class='row__img' src='<?=$row['img']?>'></div>
                 <div class='row__title col-sm-2'>
                   <p><?=$row['good']?></p>
                   <p><?=$row['article']?></p>

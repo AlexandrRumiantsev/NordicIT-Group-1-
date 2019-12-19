@@ -64,22 +64,36 @@ if($_POST['action']){
     $goods = new goods();
     $User_session = (array) json_decode($_COOKIE['json']);
     $USER->session_start($User_session);
-
+            //var_dump($_COOKIE);
+            //var_dump($_SESSION);
     switch ($_SERVER['REQUEST_URI']) {
         case '/':
             echo 'Главная';
+            session_start();
+            var_dump($_COOKIE);
+            var_dump($_SESSION);
             break;
         
         case '/category/':
             echo "<a href='../'> Главная </a>/ Категории";
+            
+             session_start();
+           // var_dump($_COOKIE);
+            //var_dump($_SESSION);
+            
             $array = $goods->getList();
             $title = "Все категории";
             render("category", $array, $title);
             break;
 
         case '/category/?type=' . $_GET['type']:
-
+     
             echo "<a href='../'>Главная</a> / <a href='../category/'> Категории </a>/  " . replacement($_GET['type']);
+            
+             session_start();
+           // var_dump($_COOKIE);
+            //var_dump($_SESSION);
+            
             $array = $goods->getCategory($_GET['type']);
             switch ($_GET['type']) {
                 case 'woman':
@@ -100,22 +114,27 @@ if($_POST['action']){
 
         case '/basket/':
             echo "<a href='../'> Главная </a> / Корзина";
-            $res = new Basket('list');
-            $array = $res->getAllGoods();
-            render("basket", $array);
+            session_start();
+            $res = new Basket();
+            $list = $res -> listDisplay();
+            render("basket", $list);
             break;
 
         case '/details/?id=' . $_GET['id']:
             $server = $_SERVER["SERVER_NAME"];
             $result = $goods->getItem($_GET['id']);
-            
+             session_start();
+            var_dump($_COOKIE);
+            var_dump($_SESSION);
             render("details" ,  $result );
             break;
         case '/admin/':
             echo "<a href='../'> Главная </a> / Административная панель";
+             session_start();
+            var_dump($_COOKIE);
+            var_dump($_SESSION);
             render("admin");
             break;    
-
     }
 
 }

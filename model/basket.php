@@ -14,11 +14,11 @@ include_once 'db.php';
 
     class Basket extends db{
     //Атрибуты
-    private $good  ;
-    private $price ;
-    private $count ;
-    private $size ;
-    private $login ;
+    public $good  ;
+    public $price ;
+    public $count ;
+    public $size ;
+    public $login ;
    
     //Методы
     function setGood(){
@@ -56,14 +56,16 @@ include_once 'db.php';
         return $this -> img;
     }
     function setLogin(){
-        $this -> login = strip_tags($_REQUEST['login']);
+      
+        //var_dump($_SESSION["user_data"]['login']);
+        $this -> login = strip_tags($_SESSION["user_data"]['login']);
     }
     function getLogin(){
         return $this -> login;
     }
     function count_goods($connect){
         $USER = json_decode($_COOKIE['json']);
-        $login = $USER -> login;
+        echo $login;
         $sql = 'SELECT COUNT(*) FROM basket WHERE user="'.$login.'"';
         $result = mysqli_query($connect, $sql); 
         if($result){
@@ -91,8 +93,10 @@ include_once 'db.php';
     }
     
     function listDisplay($connect){
-        $USER = json_decode($_COOKIE['json']);
-        $login = $USER -> login;
+        // $USER = json_decode($_COOKIE['json']);
+        
+        $connect = parent::extendConnect('localhost');
+        $login = $this -> login;
         $query = 'select * from basket WHERE user="'.$login.'"';
         $result = $connect->query($query);
         return $result;
@@ -111,7 +115,8 @@ include_once 'db.php';
                 echo "</div>";
             echo "</div>";  
         }
-        */
+      */
+        
     }
 
     function getAllGoods(){
@@ -139,6 +144,9 @@ include_once 'db.php';
     
     //Конструктор
     function __construct($count , $good='') {
+        
+        $this -> setLogin();
+        
         $linkFromParent = parent::extendConnect('localhost');
         if($count == 'count'){
             echo $this -> count_goods($linkFromParent);
@@ -156,7 +164,9 @@ include_once 'db.php';
         }
         if($count == 'list'){
             //var_dump($this -> getGood());
-            $this -> listDisplay($linkFromParent);
+            $this -> setLogin();
+            $list = $this -> listDisplay($linkFromParent);
+            return $list;
         }
         if($count == 'testscript'){
             echo "<script>alert('код js в php')</script>";

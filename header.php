@@ -46,12 +46,13 @@ $USER = new User;
                     <a href='/about'> О нас </a>
                 </nav>
                 <div class='col-sm-3'>
+                    <?php session_start(); ?>
                     <span class='container__enter' id='enter'> 
                         <img src=<?php echo 'http://'.$_SERVER['HTTP_HOST'] ."\img\icons\account.png"?>>  
                         <?php
                         $USER_LOGIN = json_decode($_COOKIE["user"] , true)['login'];
-                        if( $USER_LOGIN ){
-                            echo "<span id='log'>" . $USER_LOGIN ."</span>";
+                        if( $_SESSION["user_data"]['login'] ){
+                            echo "<span id='log'>" .$_SESSION["user_data"]['login'] ."</span>";
                         }else{
                             echo '<span>Войти</span>';
                         }    
