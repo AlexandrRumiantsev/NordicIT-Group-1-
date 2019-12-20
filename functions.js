@@ -210,7 +210,9 @@ function sendAJAX(action = '', type, form = 0 , data='') {
         log.id = 'log';
     }else if(action == 'addBasket'){
          var action = `action=` + action + `&basketItem=` + JSON.stringify(data);
+    }else if(action == 'newGood'){
+         var action = `action=` + action + `&goodItem=` + JSON.stringify(data);
     }
-  
+    console.log(action);
     http.send(action);
 }

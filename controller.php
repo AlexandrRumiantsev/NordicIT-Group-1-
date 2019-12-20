@@ -59,6 +59,11 @@ if($_POST['action']){
            $basket = new Basket;
            $basket -> save($_REQUEST["basketItem"]);
         break;
+        case 'newGood':
+            var_dump("newGood");
+            $good = new goods;
+            $good  -> save($_REQUEST["goodItem"]);
+        break;
     }
 }else{
 

@@ -3,7 +3,29 @@ include_once 'db.php';
 
 class goods extends db{
     
-   
+     function save($item){
+        var_dump("save");
+        $good = json_decode($item)->title;
+        $price = json_decode($item)->price;
+        $img = json_decode($item)->img;
+        $discription = json_decode($item)->discription;
+        $artikul = json_decode($item)->artikul;
+        $id = uniqid();
+        $type = json_decode($item)->type;
+        $connect =  parent::extendConnect('localhost');
+       
+        $sql = "INSERT INTO `goods`(
+                                 `id` , `title`,   `price`,     `img`  , `discr` , `article` , `category`
+                            ) VALUES (  
+                                '$id' , '$good',  '$price' ,  '$img' , '$discription' , '$artikul' , '$type'
+                            )";
+                        
+        $result = mysqli_query($connect, $sql); 
+        if($result){
+            echo 'Запрос успешно сработал';
+        }else echo $sql .'ERRROR';      
+    }
+    
     function getItem($id){
         $linkFromParent = parent::extendConnect('localhost');
         $query = "select * from goods where id=".$id;
