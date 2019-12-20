@@ -46,7 +46,19 @@ if($_POST['action']){
         break;
         case 'loginUser':
             new User('autorize'); 
-        break; 
+        break;
+        case 'logoutUser':
+             session_start();
+           var_dump('logout');
+          
+           unset($_SESSION['user_data']);
+           var_dump($_SESSION);
+        break;
+        case 'addBasket':
+           var_dump("addBasket");
+           $basket = new Basket;
+           $basket -> save($_REQUEST["basketItem"]);
+        break;
     }
 }else{
 

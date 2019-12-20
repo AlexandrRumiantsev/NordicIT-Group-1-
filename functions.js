@@ -154,7 +154,7 @@ function reloadPage() {
  * @param {*} form - форма для отпраки на сервер (по умолчанию пустая)
  */
 
-function sendAJAX(action = '', type, form = 0) {
+function sendAJAX(action = '', type, form = 0 , data='') {
     var result = '';
     var http = new XMLHttpRequest();
     http.open(type, location.origin + '/controller.php', true);
@@ -162,7 +162,8 @@ function sendAJAX(action = '', type, form = 0) {
         result = http.response;
         if (result) {
             console.log(result)
-            document.getElementById('overlay').remove();
+            if(document.getElementById('overlay'))
+                document.getElementById('overlay').remove();
         };
     }
 
@@ -184,9 +185,10 @@ function sendAJAX(action = '', type, form = 0) {
     http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     console.log(action);
-    console.log(form);
     if (action == 'saveUser') {
         var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value + `&mail=` + form.getElementsByTagName('input').mail.value;
+    
+        console.log(action);
     } else if (action == 'loginUser') {
         console.log(result);
         console.log(IsJsonString(result));
@@ -198,13 +200,16 @@ function sendAJAX(action = '', type, form = 0) {
     }else if(action == 'sessionStart'){
         console.log(getCookie('user'))
         console.log('sessionStart SEND');
-        if(IsJsonString(getCookie('user'))=='true'){
-             var action = `action=` + action + `&login=` + JSON.parse(getCookie('user')).login + `&password=` + JSON.parse(getCookie('user')).password;
+        if(IsJsonString(getCookiesAll().user) != undefined){
+             var userData = JSON.parse(IsJsonString(getCookiesAll().user));
+             var action = `action=` + action + `&login=` + userData.login + `&password=` + userData.password;
         }
         document.getElementById('overlay').remove();
         var log = document.querySelector('#enter span');
-        log.innerText = JSON.parse(getCookie('user')).login;
+        log.innerText = JSON.parse(IsJsonString(getCookiesAll().user)).login;
         log.id = 'log';
+    }else if(action == 'addBasket'){
+         var action = `action=` + action + `&basketItem=` + JSON.stringify(data);
     }
   
     http.send(action);

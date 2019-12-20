@@ -18,20 +18,60 @@ var detailGood = {
     'minus': function(){
          console.log('minus basket');
     },
-    'onclickTitle': function(){
+    'handlerEvents': function(){
         document.getElementsByTagName('h1')[0].onclick = function(){
             console.log('onclickTitle');
         }
-    }()    
+        document.getElementById('add_basket').onclick = function(){
+            console.log('add_basket');
+            event.stopPropagation();
+            event.stopPropagation();
+            if(
+               document.getElementById('log') && 
+               document.querySelectorAll('.container.details-page__size__item.active')[0] && 
+               document.getElementById('add-container__number').innerText > 0
+               ){
+                    var data = {
+                        'img' : document.querySelectorAll('.details-page__container-img img')[0].src , 
+                        'title' : document.querySelectorAll('.details-page__title h1')[0].innerText ,
+                        'artikul' : document.querySelectorAll('.details-page__artikul i')[0].innerText , 
+                        'price' : document.querySelectorAll('.details-page__price i')[0].innerText ,
+                        'discroption' : document.querySelectorAll('.details-page__discroption')[0].innerText,
+                        'user' : document.getElementById('log').innerText,
+                        'size' : document.querySelectorAll('.container.details-page__size__item.active')[0].innerText,
+                        'count' :document.getElementById('add-container__number').innerText
+                    };
+            sendAJAX( "addBasket" , 'POST', '' , data) ;
+            }else alert('ОШИБКА!')
+        }
+    }    
 }
 console.log('Детализация товара');
-console.log(detailGood);
-
+//console.log(detailGood);
+/*
 var btn = document.getElementById('add_basket');
-if (btn) {
+if (btn) 
     btn.onclick = function(event) {
         event.stopPropagation();
-
+            if(
+               document.getElementById('log') && 
+               document.querySelectorAll('.container.details-page__size__item.active')[0] && 
+               document.getElementById('add-container__number').innerText > 0
+               ){
+                    var data = {
+                        'img' : document.querySelectorAll('.details-page__container-img img')[0].src , 
+                        'title' : document.querySelectorAll('.details-page__title h1')[0].innerText ,
+                        'artikul' : document.querySelectorAll('.details-page__artikul i')[0].innerText , 
+                        'price' : document.querySelectorAll('.details-page__price i')[0].innerText ,
+                        'discroption' : document.querySelectorAll('.details-page__discroption')[0].innerText,
+                        'user' : document.getElementById('log').innerText,
+                        'size' : document.querySelectorAll('.container.details-page__size__item.active')[0].innerText,
+                        'count' :document.getElementById('add-container__number').innerText
+                    };
+            sendAJAX( "addBasket" , 'POST', '' , data) ;
+        }else alert('ОШИБКА!')
+        
+       /*
         var http = new XMLHttpRequest();
         var url = window.location.origin + '/model/basket.php';
         var title = document.getElementsByTagName('h1')[0].innerText;
@@ -90,7 +130,7 @@ if (btn) {
 
 
     }
-}
+}*/
 
 
 Array.from(document.getElementsByClassName('details-page__size__item')).forEach(function(element) {

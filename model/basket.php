@@ -65,27 +65,32 @@ include_once 'db.php';
     }
     function count_goods($connect){
         $USER = json_decode($_COOKIE['json']);
-        echo $login;
-        $sql = 'SELECT COUNT(*) FROM basket WHERE user="'.$login.'"';
+        $sql = 'SELECT COUNT(*) FROM basket WHERE user="'.$_SESSION["user_data"]["login"].'"';
         $result = mysqli_query($connect, $sql); 
         if($result){
             $s = $result->fetch_assoc();
             return $s["COUNT(*)"];
         }else echo $sql;
     }
-    function save($connect){
-        $good = $this->getGood();
-        $price = $this->getPrice();
-        $count = $this->getCount();
-        $size = $this->getSize();
-        $img = $this->getImg();
-        $login = $this->getLogin();
-
+    function save($item){
+        $connect = parent::extendConnect('localhost');
+        var_dump("save");
+      
+        
+        $good = json_decode($item)->title;
+        $price = json_decode($item)->price;
+        $img = json_decode($item)->img;
+        $login = json_decode($item)->user;
+        $count = json_decode($item)->count;
+        $size = json_decode($item)->size;
+       
+       
         $sql = "INSERT INTO `basket`(
                                 `good`,   `price`,     `count`,   `size` , `img` , `user`
                             ) VALUES (  
                                 '$good',  '$price' ,  '$count' , '$size' , '$img' , '$login'
                             )";
+                        
         $result = mysqli_query($connect, $sql); 
         if($result){
             echo 'Запрос успешно сработал';

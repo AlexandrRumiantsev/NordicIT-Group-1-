@@ -8,7 +8,10 @@
 (() => {
       var scriptMain = loadScript('main');
       scriptMain.onload = function () {
-          User.sessionStart();
+          //User.sessionStart();
+          console.log('User.logoutBtn');
+          User.menu();
+          User.login();
       }
       switch (window.location.pathname) {
 
@@ -19,6 +22,7 @@
             case '/details/':
                     var script = loadScript('details');
                    script.onload = function () {
+                       detailGood.handlerEvents();
                        var params = window.location.search.substr(1);
                        sendAJAX('action=detail&'+params , 'POST' , 1);
                        

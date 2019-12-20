@@ -54,7 +54,8 @@ class User extends db{
         $log = $this->getLogin();
         $pass = $this->getPassword();
         $mail = $this->getMail();
-
+        var_dump($_REQUEST);
+        
         $sql = "INSERT INTO `users`  (
                     `login`, `password`, `name` , `mail` , `role` 
                 ) 

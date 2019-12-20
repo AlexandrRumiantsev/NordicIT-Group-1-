@@ -50,7 +50,7 @@ $USER = new User;
                     <span class='container__enter' id='enter'> 
                         <img src=<?php echo 'http://'.$_SERVER['HTTP_HOST'] ."\img\icons\account.png"?>>  
                         <?php
-                        $USER_LOGIN = json_decode($_COOKIE["user"] , true)['login'];
+                        //$USER_LOGIN = json_decode($_COOKIE["user"] , true)['login'];
                         if( $_SESSION["user_data"]['login'] ){
                             echo "<span id='log'>" .$_SESSION["user_data"]['login'] ."</span>";
                         }else{
