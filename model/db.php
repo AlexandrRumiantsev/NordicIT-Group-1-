@@ -2,7 +2,7 @@
     class db {
     
       private $login = 'alexweber';
-      private $pass = '6Exniskay20'; 
+      private $pass = 'NordicItSchool'; 
       private $name_base = 'magazine_lession';
       
       function connect($host) {
