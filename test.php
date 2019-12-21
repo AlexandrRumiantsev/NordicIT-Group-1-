@@ -1,11 +1,11 @@
 <?php
 $login = 'alexweber';
-$pass = '6Exniskay20';
+$pass = 'NordicItSchool';
 $name_base = 'magazine_lession';
 $host = 'localhost';
 $link = new mysqli($host, $login, $pass, $name_base);
 // Переменная хранит число сообщений выводимых на станице
-$num = 1;
+$num = 3;
 // Извлекаем из URL текущую страницу
 $page = $_GET['page'];
 // Определяем общее число сообщений в базе данных

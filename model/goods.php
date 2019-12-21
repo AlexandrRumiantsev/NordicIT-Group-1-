@@ -28,7 +28,7 @@ class goods extends db{
     
     function getItem($id){
         $linkFromParent = parent::extendConnect('localhost');
-        $query = "select * from goods where id=".$id;
+        $query = "select * from goods where id='".$id."'";
         $result = $linkFromParent->query($query); 
         
         return $result;

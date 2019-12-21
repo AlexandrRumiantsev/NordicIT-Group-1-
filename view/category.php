@@ -21,7 +21,7 @@
 
                         <div class='row'>
                         <?php while ($row = $arResult->fetch_assoc()) {?>
-                            <?var_dump($row)?>
+                         
                             <div class='goods-list__item col-md-3 margin0_padding0'>
                                 <header> <?=json_encode($row)?> </header>
                                 <main>
