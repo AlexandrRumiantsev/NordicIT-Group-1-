@@ -97,7 +97,7 @@ include_once 'db.php';
         }else echo $sql;           
     }
     
-    function listDisplay($connect){
+    function listDisplay(){
         // $USER = json_decode($_COOKIE['json']);
         
         $connect = parent::extendConnect('localhost');
@@ -148,7 +148,7 @@ include_once 'db.php';
     }
     
     //Конструктор
-    function __construct($count , $good='') {
+    function __construct($count='' , $good='') {
         
         $this -> setLogin();
         

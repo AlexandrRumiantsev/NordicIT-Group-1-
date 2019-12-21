@@ -5,6 +5,8 @@
  * переданные в контроллер пост запросом, 
  * команды с индексом action
 */
+  
+
 if($_POST['action']){
     
     include_once(__DIR__.'/model/basket.php');
@@ -17,7 +19,7 @@ if($_POST['action']){
              session_start();
             //$obj = json_decode($_COOKIE["user"] , true);
             if($USER -> sessionStart());
-                var_dump($_SESSION);
+                
         break;     
         case 'del':
             $res = new Basket($_POST['action'] , $_REQUEST['good']);
@@ -61,6 +63,8 @@ if($_POST['action']){
         break;
         case 'newGood':
             var_dump("newGood");
+            //var_dump($_REQUEST["file"]);
+            var_dump($_FILES['name']);
             $good = new goods;
             $good  -> save($_REQUEST["goodItem"]);
         break;
@@ -81,14 +85,10 @@ if($_POST['action']){
     $goods = new goods();
     $User_session = (array) json_decode($_COOKIE['json']);
     $USER->session_start($User_session);
-            //var_dump($_COOKIE);
-            //var_dump($_SESSION);
     switch ($_SERVER['REQUEST_URI']) {
         case '/':
             echo 'Главная';
             session_start();
-            var_dump($_COOKIE);
-            var_dump($_SESSION);
             break;
         
         case '/category/':
@@ -99,17 +99,26 @@ if($_POST['action']){
             //var_dump($_SESSION);
             
             $array = $goods->getList();
+
             $title = "Все категории";
-            render("category", $array, $title);
+            render("category", $array, $title , $goods -> getPagination());
             break;
+         
+            case '/category/?page='.$_GET['page']:
+                echo "<a href='../'> Главная </a>/ Категории";
+            
+                session_start();
+
+                $array = $goods->getList();
+
+                $title = "Все категории";
+                render("category", $array, $title , $goods -> getPagination());
+                break;    
 
         case '/category/?type=' . $_GET['type']:
      
             echo "<a href='../'>Главная</a> / <a href='../category/'> Категории </a>/  " . replacement($_GET['type']);
-            
              session_start();
-           // var_dump($_COOKIE);
-            //var_dump($_SESSION);
             
             $array = $goods->getCategory($_GET['type']);
             switch ($_GET['type']) {
@@ -141,8 +150,6 @@ if($_POST['action']){
             $server = $_SERVER["SERVER_NAME"];
             $result = $goods->getItem($_GET['id']);
              session_start();
-            var_dump($_COOKIE);
-            var_dump($_SESSION);
             render("details" ,  $result );
             break;
         case '/admin/':
