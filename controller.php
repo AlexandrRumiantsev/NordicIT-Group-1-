@@ -99,9 +99,21 @@ if($_POST['action']){
             //var_dump($_SESSION);
             
             $array = $goods->getList();
+
             $title = "Все категории";
-            render("category", $array, $title);
+            render("category", $array, $title , $goods -> getPagination());
             break;
+         
+            case '/category/?page='.$_GET['page']:
+                echo "<a href='../'> Главная </a>/ Категории";
+            
+                session_start();
+
+                $array = $goods->getList();
+
+                $title = "Все категории";
+                render("category", $array, $title , $goods -> getPagination());
+                break;    
 
         case '/category/?type=' . $_GET['type']:
      
@@ -123,8 +135,38 @@ if($_POST['action']){
                     $title = 'Новинки';
                     break;
             }
-            render("category", $array, $title);
+            
+            
+            render("category", $array, $title , $goods -> getPagination());
             break;
+            
+            
+         case '/category/?type=' . $_GET['type'].'&page='.$_GET['page']:
+     
+            echo "<a href='../'>Главная</a> / <a href='../category/'> Категории </a>/  " . replacement($_GET['type']);
+             session_start();
+            
+            $array = $goods->getCategory($_GET['type']);
+            switch ($_GET['type']) {
+                case 'woman':
+                    $title = 'Женщинам';
+                    break;
+                case 'men':
+                    $title = 'Мужчинам';
+                    break;
+                case 'children':
+                    $title = 'Детям';
+                    break;
+                case 'new':
+                    $title = 'Новинки';
+                    break;
+            }
+            
+            
+            render("category", $array, $title , $goods -> getPagination());
+            break;    
+            
+            
 
         case '/basket/':
             echo "<a href='../'> Главная </a> / Корзина";

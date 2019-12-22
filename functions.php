@@ -8,7 +8,7 @@
  * @param string $title - заголовок для шаблона категорий
  * @return null
  */
-function render($view , $arResult='' , $title=''){
+function render($view , $arResult='' , $title='' , $pagination=''){
     include_once(__DIR__."/header.php"); 
     include_once(__DIR__."/view/$view.php");
     include_once(__DIR__."/footer.php"); 
