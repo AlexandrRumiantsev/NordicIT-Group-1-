@@ -1,11 +1,10 @@
 <?php
-<<<<<<< HEAD
+
 $login = 'alexweber';
 $pass = 'NordicItSchool';
-=======
+
 $login = 'root';
 $pass = 'root';
->>>>>>> e66d998e2a517bc4f3678365908603a16f606861
 $name_base = 'magazine_lession';
 $host = 'localhost';
 $link = new mysqli($host, $login, $pass, $name_base);

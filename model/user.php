@@ -37,14 +37,12 @@ class User extends db{
         $log = $_REQUEST['password'];
         $pass = $_REQUEST['login'];
         $sql = "SELECT * FROM `users` WHERE login = '$log' AND password = '{$pass}'";
-        echo $sql;
         $result = mysqli_query($connect, $sql); 
 
         if($result){
             echo 'Запрос успешен!';
             while ($row = $result->fetch_assoc()) {
                $res = json_encode($row);
-               setcookie('user', '');
                setcookie('user', $res);
             }
             
@@ -54,7 +52,6 @@ class User extends db{
         $log = $this->getLogin();
         $pass = $this->getPassword();
         $mail = $this->getMail();
-        var_dump($_REQUEST);
         
         $sql = "INSERT INTO `users`  (
                     `login`, `password`, `name` , `mail` , `role` 
@@ -66,7 +63,6 @@ class User extends db{
         $result = mysqli_query($connect, $sql); 
         if($result){
              echo 'Запрос успешно сработал';
-             var_dump($result);
         } else echo $sql;           
     }
     function session_start(){

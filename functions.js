@@ -154,16 +154,20 @@ function reloadPage() {
  * @param {*} form - форма для отпраки на сервер (по умолчанию пустая)
  */
 
-function sendAJAX(action = '', type, form = 0 , data='') {
+function sendAJAX(action = '', type, form = 0 , data='' , callback) {
+    
     var result = '';
     var http = new XMLHttpRequest();
+    
     http.open(type, location.origin + '/controller.php', true);
-    http.onreadystatechange = function() {
+    
+    http.onreadystatechange = function () {
         result = http.response;
         if (result) {
-            console.log(result)
             if(document.getElementById('overlay'))
                 document.getElementById('overlay').remove();
+            console.log(result);        
+            callback(result);
         };
     }
 
@@ -184,22 +188,17 @@ function sendAJAX(action = '', type, form = 0 , data='') {
 
     http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    console.log(action);
+    
+    
     if (action == 'saveUser') {
         var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value + `&mail=` + form.getElementsByTagName('input').mail.value;
-    
-        console.log(action);
     } else if (action == 'loginUser') {
-        console.log(result);
-        console.log(IsJsonString(result));
+     
         document.getElementById('overlay').remove();
-        console.log('reloadPage');
         reloadPage();
-        console.log(form);
         var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value;
     }else if(action == 'sessionStart'){
-        console.log(getCookie('user'))
-        console.log('sessionStart SEND');
+  
         if(IsJsonString(getCookiesAll().user) != undefined){
              var userData = JSON.parse(IsJsonString(getCookiesAll().user));
              var action = `action=` + action + `&login=` + userData.login + `&password=` + userData.password;
@@ -211,9 +210,9 @@ function sendAJAX(action = '', type, form = 0 , data='') {
     }else if(action == 'addBasket'){
          var action = `action=` + action + `&basketItem=` + JSON.stringify(data);
     }else if(action == 'newGood'){
-         console.log(form);
          var action = `action=` + action + `&goodItem=` + JSON.stringify(data);
     }
+    
    
     http.send(action);
 }

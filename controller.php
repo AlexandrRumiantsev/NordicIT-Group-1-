@@ -27,7 +27,6 @@ if($_POST['action']){
 
         case 'mail':
             $mail = $_REQUEST["to"];
-            echo $mail;
             $title = 'Подписка на сайт SH';
             $message = `Поздравляем, вы подписались на обновления нашего сайта!`;
             if($mail)
@@ -51,20 +50,13 @@ if($_POST['action']){
         break;
         case 'logoutUser':
              session_start();
-           var_dump('logout');
-          
-           unset($_SESSION['user_data']);
-           var_dump($_SESSION);
+             unset($_SESSION['user_data']);
         break;
         case 'addBasket':
-           var_dump("addBasket");
            $basket = new Basket;
            $basket -> save($_REQUEST["basketItem"]);
         break;
         case 'newGood':
-            var_dump("newGood");
-            //var_dump($_REQUEST["file"]);
-            var_dump($_FILES['name']);
             $good = new goods;
             $good  -> save($_REQUEST["goodItem"]);
         break;
@@ -84,6 +76,7 @@ if($_POST['action']){
     $USER = new user();
     $goods = new goods();
     $User_session = (array) json_decode($_COOKIE['json']);
+    session_start();
     $USER->session_start($User_session);
     switch ($_SERVER['REQUEST_URI']) {
         case '/':
@@ -95,9 +88,6 @@ if($_POST['action']){
             echo "<a href='../'> Главная </a>/ Категории";
             
              session_start();
-           // var_dump($_COOKIE);
-            //var_dump($_SESSION);
-            
             $array = $goods->getList();
 
             $title = "Все категории";
@@ -185,8 +175,6 @@ if($_POST['action']){
         case '/admin/':
             echo "<a href='../'> Главная </a> / Административная панель";
              session_start();
-            var_dump($_COOKIE);
-            var_dump($_SESSION);
             render("admin");
             break;    
     }
