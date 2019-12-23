@@ -1,3 +1,4 @@
+<?php  if($_SESSION["user_data"]["role"] == 'admin'): ?>
 <h1 class='admin__title'>Административная панель</h1>
 <div class='container admin-panel'>
    
@@ -22,6 +23,7 @@
         <p><input  type='hidden'></p>
         <p><input type='submit'></p>
     </form>
-</div>    
-<?php 
-//echo "Шаблона админки";
+</div>
+<?php else: ?>
+<h1> У вас нет прав доступа к данной странице! </h1>
+<?php endif ?>
