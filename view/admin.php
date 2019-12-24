@@ -9,7 +9,7 @@
         <p><input placeholder='Артикул' name='article'></p>
          <p>
              <select name='type'>
-              <option value="man">Мужское</option>
+              <option value="men">Мужское</option>
               <option value="woman">Женское</option>
               <option value="children">Детям</option>
               <option value="new">Новинка</option>

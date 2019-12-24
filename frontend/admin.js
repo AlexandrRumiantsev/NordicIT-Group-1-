@@ -80,7 +80,9 @@ adminPanel.dispacher = function(){
                         'type' : value
                     };
                     
-             sendAJAX( "newGood" , 'POST', form , data) ;
+             sendAJAX( "newGood" , 'POST', form , data , function(){
+                 alert('Товар успешно добавлен на сайт!');
+             }) ;
             
            return false;
         }

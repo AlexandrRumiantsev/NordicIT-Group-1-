@@ -30,8 +30,13 @@ function returnMainPage() {
  * @param {string} elem - тип элемента
  * @returns null
  */
-function createElem(elem) {
-    return document.createElement(elem);
+function createElem(elem, id, className) {
+    var elem = document.createElement(elem);
+    if (id)
+        elem.id = id;
+    if (className)
+        elem.className = className;
+    return elem;
 }
 /**
  * Установка Cookie на странице.
@@ -147,6 +152,93 @@ function reloadPage() {
 }
 
 
+
+/**
+ * Создание спинера в JavaScript
+ * 
+ * @param null
+ * @returns null
+ */
+var createSpiner = function() {
+    var elemSpiner = {
+        'overlay': createElem('div', 'overlay'),
+        'lds': createElem('div', '', 'lds-ripple'),
+        'ldsSubOne': createElem('div', ''),
+        'ldsSubTwo': createElem('div', '')
+    }
+
+
+    var push = function() {
+        elemSpiner.lds.appendChild(elemSpiner.ldsSubOne);
+        elemSpiner.lds.appendChild(elemSpiner.ldsSubTwo);
+        elemSpiner.overlay.appendChild(elemSpiner.lds);
+        document.body.appendChild(elemSpiner.overlay);
+    }()
+
+}
+
+var createActionAJAX = function(action , form = 0, data = '') {
+
+    var result = '';
+    switch (action) {
+        case 'forgot':
+            result = `action=` + action + `&email=` + data;
+            break;   
+        case 'saveUser':
+            result = `action=` + action + 
+                `&login=` + form.getElementsByTagName('input').login.value + 
+                `&password=` + form.getElementsByTagName('input').password.value + 
+                `&mail=` + form.getElementsByTagName('input').mail.value;
+            break;
+        case 'loginUser':
+            document.getElementById('overlay').remove();
+            //reloadPage();
+            result = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value;
+            break;
+        case 'sessionStart':
+            if (IsJsonString(getCookiesAll().user) != undefined) {
+                var userData = JSON.parse(IsJsonString(getCookiesAll().user));
+                result = `action=` + action + `&login=` + userData.login + `&password=` + userData.password;
+            }
+            document.getElementById('overlay').remove();
+            var log = document.querySelector('#enter span');
+            log.innerText = JSON.parse(IsJsonString(getCookiesAll().user)).login;
+            log.id = 'log';
+            break;
+        case 'addBasket':
+            result = `action=` + action + `&basketItem=` + JSON.stringify(data);
+            break;
+        case 'newGood':
+            result = `action=` + action + `&goodItem=` + JSON.stringify(data);
+            break;
+        case 'mail':
+            result = `action=` + action + `&to=` + form.getElementsByTagName('input').mail.value;
+            break;
+        case 'logoutUser':
+            result = `action=logoutUser`;
+            break;
+        case 'delgood':
+            result = `action=` + action + `&good=` + data;
+            break;
+        case 'zakaz':
+
+            var formData = new FormData(form);
+            var object = {};
+            formData.forEach(function(value, key){
+                object[key] = value;
+                console.log(value);
+            });
+            var json = JSON.stringify(object);
+
+            result = `action=` + action + `&json=` + JSON.stringify(data) + `&user_data=`+json;
+            break;        
+        default:
+            console.log(action);
+    }
+
+    return result
+}
+
 /**
  * sendAJAX - отправка асинхронного запроса в контроллер
  * @param {*} action  - экшн контроллера, куда передается запрос
@@ -154,65 +246,37 @@ function reloadPage() {
  * @param {*} form - форма для отпраки на сервер (по умолчанию пустая)
  */
 
-function sendAJAX(action = '', type, form = 0 , data='' , callback) {
-    
+function sendAJAX(action = '', type, form = 0, data = '', callback ) {
+
+    console.log(action);
     var result = '';
     var http = new XMLHttpRequest();
-    
+
     http.open(type, location.origin + '/controller.php', true);
-    
-    http.onreadystatechange = function () {
+
+    http.onreadystatechange = function() {
         result = http.response;
+        console.log(result);
         if (result) {
-            if(document.getElementById('overlay'))
-                document.getElementById('overlay').remove();
-            console.log(result);        
-            callback(result);
+            if (document.getElementById('overlay'))
+                document.getElementById('overlay').remove();   
+            if(result){
+                
+                callback(result);
+            }else{
+                
+                callback('' );
+            }   
+            
         };
     }
 
-    var overlay = document.createElement('div');
-    overlay.id = 'overlay';
-
-    var lds = document.createElement('div');
-    lds.className = 'lds-ripple';
-
-    var ldsSubOne = document.createElement('div');
-    var ldsSubTwo = document.createElement('div');
-
-    overlay.appendChild(lds);
-    lds.appendChild(ldsSubOne);
-    lds.appendChild(ldsSubTwo);
-
-    document.getElementsByTagName('body')[0].appendChild(overlay);
+    createSpiner();
 
     http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-    
-    if (action == 'saveUser') {
-        var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value + `&mail=` + form.getElementsByTagName('input').mail.value;
-    } else if (action == 'loginUser') {
-        document.getElementById('overlay').remove();
-        reloadPage();
-        var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value;
-    }else if(action == 'sessionStart'){
-        if(IsJsonString(getCookiesAll().user) != undefined){
-             var userData = JSON.parse(IsJsonString(getCookiesAll().user));
-             var action = `action=` + action + `&login=` + userData.login + `&password=` + userData.password;
-        }
-        document.getElementById('overlay').remove();
-        var log = document.querySelector('#enter span');
-        log.innerText = JSON.parse(IsJsonString(getCookiesAll().user)).login;
-        log.id = 'log';
-    }else if(action == 'addBasket'){
-         var action = `action=` + action + `&basketItem=` + JSON.stringify(data);
-    }else if(action == 'newGood'){
-         var action = `action=` + action + `&goodItem=` + JSON.stringify(data);
-    }else if(action == 'mail'){
-         var action = `action=` + action + `&to=` + form.getElementsByTagName('input').mail.value;
-    }
-    console.log(action);
-   
-    http.send(action);
+
+    http.send(
+        createActionAJAX(action , form , data )
+    );
 }

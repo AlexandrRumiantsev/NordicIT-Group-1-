@@ -39,5 +39,54 @@
               <p>ИТОГО: <b id='summ'></b> руб.<p>
           </div>   
       <div>
+     
+
+      <div>
+        Варианты доставки
+      </div>
+      <form id='form_zakaz'>
+      <div>
+        <select name='variant'>
+          <option>Курьером</option>
+          <option>Самовывоз/option>
+        </select>
+      </div>
+
+      <div>Имя</div>
+      <div>
+      <input name='name' />
+      </div>
+
+      <div>Фамилия</div>
+      <div>
+      <input name='family'/>
+      </div>
+
+      <div>Адрес</div>
+      <div>
+      <input name='addr'/>
+      </div>
+
+      <div>Город</div>
+      <div>
+      <input name='town'/>
+      </div>
+
+      <div>Индекс</div>
+      <div>
+      <input name='index'/>
+      </div>
+
+      <div>Телефон</div>
+      <div>
+      <input name='tel'/>
+      </div>
+
+
+      <div>Email</div>
+      <div>
+      <input name='mail'/>
+      </div>
+      </form>
       <span id='zakaz'>ОФОРМИТЬ ЗАКАЗ</span>
 </main>

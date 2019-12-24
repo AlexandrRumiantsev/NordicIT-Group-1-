@@ -176,7 +176,7 @@ include_once 'db.php';
         if($count == 'testscript'){
             echo "<script>alert('код js в php')</script>";
         }
-        if($count == 'del'){
+        if($count == 'delgood'){
             //echo "удалить ".$good;
             $this -> delItemBasket($good);
         }

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php 
 
-error_reporting(1);
+error_reporting(0);
+
 
 include_once(__DIR__.'/model/user.php');
 include_once(__DIR__.'/model/basket.php');
@@ -37,6 +38,7 @@ $USER = new User;
                         SH
                     </span>
                 </div>
+
                 <nav class='col-sm-8'>
                     <a href='/category'> Все </a>
                     <a href='/category?type=woman'> Женцинам </a>
@@ -45,6 +47,7 @@ $USER = new User;
                     <a href='/category?type=new'> Новинки </a>
                     <a href='/about'> О нас </a>
                 </nav>
+
                 <div class='col-sm-3'>
                     <?php session_start(); ?>
                     <span class='container__enter' id='enter'> 

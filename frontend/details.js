@@ -41,7 +41,9 @@ var detailGood = {
                         'size' : document.querySelectorAll('.container.details-page__size__item.active')[0].innerText,
                         'count' :document.getElementById('add-container__number').innerText
                     };
-            sendAJAX( "addBasket" , 'POST', '' , data) ;
+            sendAJAX( "addBasket" , 'POST', '' , data , function(){
+                alert('Товар успешно добален в корзину!');
+            }) ;
             }else alert('ОШИБКА!')
         }
         

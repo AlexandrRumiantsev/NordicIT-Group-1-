@@ -5,16 +5,14 @@
  * переданные в контроллер пост запросом, 
  * команды с индексом action
 */
-  
+include_once(__DIR__.'/functions.php');
+include_once(__DIR__.'/autoload.php');
 
 if($_POST['action']){
-    
-    include_once(__DIR__.'/model/basket.php');
-    include_once(__DIR__.'/model/goods.php');
-    include_once(__DIR__.'/model/user.php');
+   
     include_once(__DIR__.'/classes/SendMailSmtpClass.php');
     
-    $USER = new user();
+    $USER = new User();
   
     switch ($_POST['action']){
         case 'sessionStart':
@@ -22,7 +20,7 @@ if($_POST['action']){
             if($USER -> sessionStart());
                 
         break;     
-        case 'del':
+        case 'delgood':
             $res = new Basket($_POST['action'] , $_REQUEST['good']);
         break;
 
@@ -32,17 +30,9 @@ if($_POST['action']){
             $title = 'Подписка на сайт SH';
             $message = "Поздравляем, вы подписались на обновления нашего сайта!";
             
-            $mailSMTP = new SendMailSmtpClass('aleksandr.rumiantsev1111@yandex.ru', '*****', 'ssl://smtp.yandex.ru', 465, "UTF-8");
-            
-            // от кого
-            $from = array(
-                "Александр", // Имя отправителя
-                "aleksandr.rumiantsev1111@yandex.ru" // почта отправителя
-            );
+            $result = sendMail( $title ,   $message , $mail );
  
-            // отправляем письмо
-            $result =  $mailSMTP->send($mail,  $title,  $message , $from); 
-             
+        
             if($result === true){
                 echo "Done";
             }else{
@@ -64,25 +54,21 @@ if($_POST['action']){
             $title = 'Подтвердите регистрацию на сайте SH';
             
             $ref = $_SERVER['HTTP_REFERER'];
-            $message =  "/accept/?mail=".$mail;
-            $mailSMTP = new SendMailSmtpClass('aleksandr.rumiantsev1111@yandex.ru', '*****', 'ssl://smtp.yandex.ru', 465, "UTF-8");
-            
-            // от кого
-            $from = array(
-                "Александр", // Имя отправителя
-                "aleksandr.rumiantsev1111@yandex.ru" // почта отправителя
-            );
+            $message =  "<a href='http://localhost:8888/accept/?mail={$mail}'>  Подтвержить регистрацию </a>";
+
+            $result = sendMail( $title ,   $message , $mail );
  
              
             // отправляем письмо
-            $result =  $mailSMTP->send($mail,  $title,  $message , $from); 
+    
              
             if($result === true){
                 echo "Done";
+                new User('reg'); 
             }else{
                 echo "Error: " . $result;
             }
-            new User('reg'); 
+            
         break;
         case 'loginUser':
             new User('autorize'); 
@@ -99,6 +85,54 @@ if($_POST['action']){
             $good = new goods;
             $good  -> save($_REQUEST["goodItem"]);
         break;
+        case 'zakaz':
+            $arrData = json_decode($_REQUEST['json']);
+            $userData = json_decode($_REQUEST['user_data']);
+            $message = '';
+
+            $title = 'Ваш заказ на сайте SH';
+            
+            $ref = $_SERVER['HTTP_REFERER'];
+            $message .= '<table>';
+            $message .= '<tr>
+                            <td> Изображение </td>
+                            <td> Название </td>
+                            <td> Цена </td>
+                            <td> Размер </td>
+                            <td> Количество </td>
+                        </tr>>';
+        
+            foreach ( $arrData as $item) {
+                $img = $item -> src;
+                $message .= "
+                    <tr>
+                    <td><img src=' ".$img."'/></td>
+                    <td>"  .$item -> title ."</td>
+                    <td>"  .$item -> price  ."</td>
+                    <td>"  .$item -> size  ."</td>
+                    <td>"  .$item -> count ."</td>
+                    </tr>
+                ";
+            }
+
+            $message .= '</table>';
+            $result = sendMail( $title ,  $message , $userData->mail );
+        
+
+        break;
+
+        case 'forgot':
+            $user = new User;
+            $data = $user -> forgot($_REQUEST['email']); 
+           
+            $name =  $data['name'] ;
+             $log =  $data['login']  ;
+            $password =  $data['password'];
+            $message = "Уважаемый $name, Учетные данные от сайта SH. ваш логин = $log, ваш пароль = $password";
+            //ПОдготовить тестовый яндекс мэйл
+            $result = sendMail( 'Ваш пароль от сайта' ,  $message , $data['mail'] );
+        
+        break;    
     }
 }else{
 
@@ -121,15 +155,15 @@ if($_POST['action']){
         case '/':
             echo 'Главная';
             session_start();
+        
             break;
         case '/accept/?mail='.$_REQUEST['mail']:
             echo 'Подтверждение мэйла';
-            var_dump($_REQUEST['mail']);
             $USER->accept($_REQUEST['mail']);
             break;
         case '/category/':
             echo "<a href='../'> Главная </a>/ Категории";
-            
+            var_dump($_SESSION);
              session_start();
             $array = $goods->getList();
 
@@ -195,15 +229,12 @@ if($_POST['action']){
                     break;
             }
             
-            
             render("category", $array, $title , $goods -> getPagination());
             break;    
             
-            
-
+        
         case '/basket/':
             echo "<a href='../'> Главная </a> / Корзина";
-            session_start();
             $res = new Basket();
             $list = $res -> listDisplay();
             render("basket", $list);
@@ -223,7 +254,3 @@ if($_POST['action']){
     }
 
 }
-
-
-
-

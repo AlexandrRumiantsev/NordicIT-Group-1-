@@ -48,7 +48,7 @@ var User = {
                         e.stopPropagation();
                         setCookie('user', '');
                         console.log('logout');
-                        var res = sendAJAX('action=logoutUser', 'POST', '', '', function(result) {
+                        var res = sendAJAX('logoutUser', 'POST', '', '', function(result) {
                             reloadPage();
                         });
 
@@ -84,12 +84,15 @@ var User = {
             e.preventDefault();
             if (this.querySelector('h1').innerText == 'Авторизация') {
                 console.log('Авторизация');
-                sendAJAX("loginUser", 'POST', this, function() {
-                    reloadPage();
+                sendAJAX("loginUser", 'POST', this, function(result) {
+                    //reloadPage();
+                    console.log(result);
                 });
             } else {
 
-                sendAJAX("saveUser", 'POST', this);
+                sendAJAX("saveUser", 'POST', this , '' , function() {
+                    alert('Вы успешно зарегистрировались! Письмо для подтверждения, у вас на почте!');
+                });
             }
             return false;
         });
@@ -168,8 +171,16 @@ var User = {
         form.id = 'form_autorize';
 
         form.addEventListener('submit', function(e) {
-            sendAJAX("loginUser", 'POST', this, '', function() {
-                reloadPage();
+            sendAJAX("loginUser", 'POST', this, '', function(rez , autorize ) {
+                console.log(getCookiesAll().user);
+                if(getCookiesAll().user != ''){
+                    console.log('Авторизация успешна!');
+                    reloadPage();
+                }else{ 
+                    alert('Не удалось авторизоваться, подтвердите учетную запись по почте!');
+                }
+                
+            
             });
             return false;
         });
@@ -195,7 +206,7 @@ var User = {
                 'fields': {
                     'name': 'login',
                     'id': 'inputLogin',
-                    'placeholder': 'Логин',
+                    'placeholder': 'Логин'
                 }
             },
             '3': {
@@ -227,7 +238,30 @@ var User = {
 
                     }
                 }
+            },
+            '6':{
+                'type': 'span',
+                'fields': {
+                    'innerText': 'Восстановить пароль',
+                    'id': 'forgot_pass',
+                    'onclick':() => {
+                        var email = window.prompt('Введите почту на которую будет выслан пароль.');
+                        console.log(email);
+                        sendAJAX('forgot', 'POST' ,  '' , email , function(result) {
+                            console.log(result);
+                            
+                            if(result.indexOf('false') != '-1'){
+                                alert('Учетная запись не зарегистрирована в системе!')
+                            }else{
+                                alert('Пароль отправлен на мэйл');
+                            }
+                        });
+                       
+
+                    }
+                }
             }
+
         }
 
 

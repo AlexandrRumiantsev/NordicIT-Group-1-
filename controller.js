@@ -18,12 +18,9 @@
                   break;
 
             case '/details/':
-                    var script = loadScript('details');
+                   var script = loadScript('details');
                    script.onload = function () {
-                       detailGood.handlerEvents();
-                       var params = window.location.search.substr(1);
-                       sendAJAX('action=detail&'+params , 'POST' , 1);
-                       
+                        detailGood.handlerEvents();
                    }
                   break;
 
@@ -56,8 +53,12 @@
                         });
 
                         document.getElementById('zakaz').addEventListener('click', function () {
-                              console.log(arrObj);
-                              console.log(JSON.stringify(arrObj));
+                              //console.log(arrObj);
+                              //console.log(JSON.stringify(arrObj));
+                              console.log(document.forms.form_zakaz);
+                              sendAJAX('zakaz' , 'POST' , document.forms.form_zakaz ,  arrObj , function(){
+                                    console.log('zakaz');
+                             });
                         })
                         Array.from(document.getElementsByClassName('del-item-basket')).forEach(function (element) {
                               element.onclick = function () {
@@ -66,8 +67,10 @@
                                     console.log('Удалить товар ' + objDel.querySelector(".row__title p").innerText);
                                     alert("Удалить товар: " + objDel.querySelector(".row__title p").innerText);
                                     objDel.remove();
-                                    sendAJAX('action=del&good=' + objDel.querySelector(".row__title p").innerText, 'POST');
-
+                                    //sendAJAX('action=del&good=' + objDel.querySelector(".row__title p").innerText, 'POST');
+                                    sendAJAX('delgood' , 'POST' , '' , objDel.querySelector(".row__title p").innerText , function(){
+                                           console.log('del');
+                                    });
                               };
                         });
 

@@ -14,7 +14,8 @@ class User extends db{
     private $login ;
     private $password ;
     private $mail ;
-    //Методы
+    // Методы
+    // Реализовать запись пароля в Базу обработанного через функцию шифрования.
     function setLogin(){
         $this -> login = strip_tags($_REQUEST['login']);
     }
@@ -52,6 +53,7 @@ class User extends db{
         
     }
     function login($connect){
+        //var_dump($_REQUEST);
         $log = $_REQUEST['password'];
         $pass = $_REQUEST['login'];
         $sql = "SELECT * FROM `users` WHERE login = '$log' AND password = '{$pass}'";
@@ -60,13 +62,20 @@ class User extends db{
         if($result){
             echo 'Запрос успешен!';
             while ($row = $result->fetch_assoc()) {
-               $res = json_encode($row);
-               setcookie('user', $res);
+               if($row["accept"] == 1){
+                    $res = json_encode($row);
+                    setcookie('user', $res);
+                    $_COOKIE['accept'] = true; 
+               }else{
+                   $_COOKIE['accept'] = false; 
+               }
+               
             }
             
         }else echo $sql; 
     }
     function save($connect){
+        
         $log = $this->getLogin();
         $pass = $this->getPassword();
         $mail = $this->getMail();
@@ -80,8 +89,24 @@ class User extends db{
 
         $result = mysqli_query($connect, $sql); 
         if($result){
-             echo 'Запрос успешно сработал';
+            print_r($result);
         } else echo $sql;           
+    }
+    function forgot($email){
+        $data = '';
+        $linkFromParent = parent::extendConnect('localhost');
+        $query = 'select * from users WHERE mail="'.$email.'"';
+        $result = mysqli_query($linkFromParent , $query); 
+        if($result){
+            if($result -> num_rows == 0 )
+                echo 'false';
+            else{
+                while ($row = mysqli_fetch_array($result)){
+                    $data = $row;
+                }
+                return $data;
+            }   
+        } else echo 'Ошибка!!! Запрос='. $query;           
     }
     function session_start(){
         /*

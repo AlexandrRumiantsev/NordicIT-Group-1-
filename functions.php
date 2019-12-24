@@ -40,3 +40,34 @@ function replacement($str){
           break;
       }
 }
+
+/**
+ * 
+ * Функция для отравки письма на почту, через класс SendMailSmptClass
+ * 
+ * @param string 
+ * @return string  
+ */
+function sendMail( $title ,  $message , $mail){
+  
+   //cc42915_magazine
+   //INordicSchool
+
+   //ПОдготовить тестовый яндекс мэйл
+   $mailSMTP = new SendMailSmtpClass('tte577es7@yandex.ru', 'INordicSchool', 'ssl://smtp.yandex.ru', 465, "UTF-8");
+            
+   // от кого
+   $from = array(
+       "Александр", // Имя отправителя
+       "tte577es7@yandex.ru" // почта отправителя
+   );
+
+   $result =  $mailSMTP->send($mail ,  $title,  $message , $from); 
+             
+   return $result;
+
+}
+
+function resultSucces(){
+  echo "<script>alert('Вы успешно зарегестрировались. Письмо с подтверждением авторизации, отправлено вам на почту.')</script>";
+}

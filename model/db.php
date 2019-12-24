@@ -1,8 +1,8 @@
 <?php
     class db {
     
-      private $login = 'alexweber';
-      private $pass = 'NordicItSchool'; 
+      private $login = 'root';
+      private $pass = 'root'; 
       private $name_base = 'magazine_lession';
       
       function connect($host) {
@@ -18,10 +18,3 @@
         return $this -> connect($host);
       }
     } 
-
-//подключения c конструктором
-//$test = new db('localhost');
-
-//подключения без конструкта
-//$test = new db();
-//$test -> connect('localhost');
