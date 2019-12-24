@@ -33,6 +33,24 @@ class User extends db{
     function getMail(){
         return $this -> mail;
     }
+    function accept($mail){
+        $connect = parent::extendConnect('localhost');
+        
+        $result =  $connect->query("SELECT * FROM users WHERE mail='$mail'");
+        
+        if($connect->affected_rows != 0){
+             $sql = "
+            UPDATE users
+            SET accept = 1
+            WHERE mail = '".$mail ."'";
+        
+            $result = mysqli_query($connect, $sql); 
+            echo 'Учетная запись подтверждена';
+        }else{
+            echo 'Учетная запись не найдена в системе';
+        }
+        
+    }
     function login($connect){
         $log = $_REQUEST['password'];
         $pass = $_REQUEST['login'];
@@ -54,10 +72,10 @@ class User extends db{
         $mail = $this->getMail();
         
         $sql = "INSERT INTO `users`  (
-                    `login`, `password`, `name` , `mail` , `role` 
+                    `login`, `password`, `name` , `mail` , `role` , `accept`
                 ) 
                 VALUES ( 
-                    '$log', '$pass', '' , '$mail' , 'user'
+                    '$log', '$pass', '' , '$mail' , 'user' , '0'
                 )";
 
         $result = mysqli_query($connect, $sql); 

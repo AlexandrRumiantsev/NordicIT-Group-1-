@@ -19,7 +19,6 @@ if($_POST['action']){
     switch ($_POST['action']){
         case 'sessionStart':
              session_start();
-            //$obj = json_decode($_COOKIE["user"] , true);
             if($USER -> sessionStart());
                 
         break;     
@@ -41,7 +40,6 @@ if($_POST['action']){
                 "aleksandr.rumiantsev1111@yandex.ru" // почта отправителя
             );
  
-             
             // отправляем письмо
             $result =  $mailSMTP->send($mail,  $title,  $message , $from); 
              
@@ -61,6 +59,29 @@ if($_POST['action']){
              }
         break;
         case 'saveUser':
+           
+            $mail = $_REQUEST['mail'];
+            $title = 'Подтвердите регистрацию на сайте SH';
+            
+            $ref = $_SERVER['HTTP_REFERER'];
+            $message =  "/accept/?mail=".$mail;
+            $mailSMTP = new SendMailSmtpClass('aleksandr.rumiantsev1111@yandex.ru', '*****', 'ssl://smtp.yandex.ru', 465, "UTF-8");
+            
+            // от кого
+            $from = array(
+                "Александр", // Имя отправителя
+                "aleksandr.rumiantsev1111@yandex.ru" // почта отправителя
+            );
+ 
+             
+            // отправляем письмо
+            $result =  $mailSMTP->send($mail,  $title,  $message , $from); 
+             
+            if($result === true){
+                echo "Done";
+            }else{
+                echo "Error: " . $result;
+            }
             new User('reg'); 
         break;
         case 'loginUser':
@@ -101,7 +122,11 @@ if($_POST['action']){
             echo 'Главная';
             session_start();
             break;
-        
+        case '/accept/?mail='.$_REQUEST['mail']:
+            echo 'Подтверждение мэйла';
+            var_dump($_REQUEST['mail']);
+            $USER->accept($_REQUEST['mail']);
+            break;
         case '/category/':
             echo "<a href='../'> Главная </a>/ Категории";
             
