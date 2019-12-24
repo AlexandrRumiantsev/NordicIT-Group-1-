@@ -12,7 +12,7 @@
     <i>Артикул <?=$row["article"]?></i>
 </div>
 <div class='container details-page__price'>
-    <i>Цена <?=$row["price"]?></i>
+    <i>Цена <b><?=$row["price"]?></b></i>
 </div>
 <div class='container details-page__discroption'>
    Описание <?=$row["discr"]?>
