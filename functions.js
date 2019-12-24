@@ -193,12 +193,10 @@ function sendAJAX(action = '', type, form = 0 , data='' , callback) {
     if (action == 'saveUser') {
         var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value + `&mail=` + form.getElementsByTagName('input').mail.value;
     } else if (action == 'loginUser') {
-     
         document.getElementById('overlay').remove();
         reloadPage();
         var action = `action=` + action + `&login=` + form.getElementsByTagName('input').login.value + `&password=` + form.getElementsByTagName('input').password.value;
     }else if(action == 'sessionStart'){
-  
         if(IsJsonString(getCookiesAll().user) != undefined){
              var userData = JSON.parse(IsJsonString(getCookiesAll().user));
              var action = `action=` + action + `&login=` + userData.login + `&password=` + userData.password;
@@ -211,8 +209,10 @@ function sendAJAX(action = '', type, form = 0 , data='' , callback) {
          var action = `action=` + action + `&basketItem=` + JSON.stringify(data);
     }else if(action == 'newGood'){
          var action = `action=` + action + `&goodItem=` + JSON.stringify(data);
+    }else if(action == 'mail'){
+         var action = `action=` + action + `&to=` + form.getElementsByTagName('input').mail.value;
     }
-    
+    console.log(action);
    
     http.send(action);
 }

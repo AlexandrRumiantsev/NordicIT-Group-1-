@@ -80,7 +80,7 @@ include_once __DIR__ . '/header.php';
                         <div class='bottom-info__subtext'>подписывайся и следи за новинками и выгодными предложениями.</div>
 
                         <form id='mail_send'>
-                            <input type='text' placeholder='email'/>
+                            <input name='mail' type='text' placeholder='email'/>
                             <input type='submit' value='Записаться'/>
                         </form>
                         <span id='system-message'></span>

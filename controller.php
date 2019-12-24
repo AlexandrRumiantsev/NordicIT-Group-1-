@@ -12,6 +12,8 @@ if($_POST['action']){
     include_once(__DIR__.'/model/basket.php');
     include_once(__DIR__.'/model/goods.php');
     include_once(__DIR__.'/model/user.php');
+    include_once(__DIR__.'/classes/SendMailSmtpClass.php');
+    
     $USER = new user();
   
     switch ($_POST['action']){
@@ -26,13 +28,29 @@ if($_POST['action']){
         break;
 
         case 'mail':
+          
             $mail = $_REQUEST["to"];
             $title = 'Подписка на сайт SH';
-            $message = `Поздравляем, вы подписались на обновления нашего сайта!`;
-            if($mail)
-                $result = mail($mail, $title, $message);
-
-            if( $result )  echo 'Письмо успешно отправлено';
+            $message = "Поздравляем, вы подписались на обновления нашего сайта!";
+            
+            $mailSMTP = new SendMailSmtpClass('aleksandr.rumiantsev1111@yandex.ru', '*****', 'ssl://smtp.yandex.ru', 465, "UTF-8");
+            
+            // от кого
+            $from = array(
+                "Александр", // Имя отправителя
+                "aleksandr.rumiantsev1111@yandex.ru" // почта отправителя
+            );
+ 
+             
+            // отправляем письмо
+            $result =  $mailSMTP->send($mail,  $title,  $message , $from); 
+             
+            if($result === true){
+                echo "Done";
+            }else{
+                echo "Error: " . $result;
+            }
+          
         break;
         case 'detail':
             $goods = new goods();
